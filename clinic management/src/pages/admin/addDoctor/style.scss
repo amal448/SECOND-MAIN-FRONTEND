@@ -1,0 +1,92 @@
+
+
+
+.admin-add-doctor {
+    display: flex;
+    flex-direction: column;
+    align-items: self-start;
+     background-image: url('../../../assets/images/backgroun-image.jpeg');
+     background-size: cover;
+     background-repeat: no-repeat;
+     height: 100vh;
+    
+    .header {
+        margin: 5rem 5rem 1rem 5rem;
+
+        h1 {
+            font-size: 3rem;
+            margin-left: 146px;
+        }
+
+    }
+    
+    form {
+
+        // width: 90rem; /* Adjust the width as needed */
+        padding: 2rem;
+        background-color:  #f1f1f1;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add shadow effect */
+        
+        h5 {
+            margin: 1rem;
+            font-size: xx-large;
+            font-weight: 560;
+        }
+        align-self: center;
+        padding: 1rem;
+
+        .form-group {
+            display: flex;
+            // width: 80rem;
+            width: 66rem;
+
+            justify-content: space-between;
+            .form-control {
+                display: flex;
+                flex-direction: column;
+                margin: 1rem;
+                width: 100%;
+                
+                label {
+                    span {
+                        font-size: large;
+                        color: rgb(255, 62, 62);
+
+                    }
+                    font-size: x-large;
+                    color: rgb(71, 71, 71);
+                    text-transform: capitalize;
+                    margin: 0.4rem 0.4rem 0.4rem 0rem;
+                }
+
+                input {
+                    padding: 0.5rem;
+                    outline: none;
+                    border: 1 px solid black;
+                    border-radius: 10px;
+                    font-size: x-large;
+                }
+            }  
+
+            .inner-form-group {
+                // width: 50%;
+                display: flex;
+            }
+        }
+
+        input[type="button"] {
+            border: none;
+            font-weight: 800;
+            box-shadow: 0 0 4px gray;
+            font-size: xx-large;
+            margin: 2rem 0 2rem 2rem;
+            float: right;
+            padding: 0.4rem 1rem;
+            background: linear-gradient(68.08deg, #9083D5 9.64%, #807593 92.49%);
+            color: white;
+            border-radius: 10px;
+        }
+    }
+}
+

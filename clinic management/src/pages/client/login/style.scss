@@ -1,0 +1,103 @@
+.admin-login {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // background-image: url('../../../assets/images/backgroun-image.jpeg');
+    background-repeat: no-repeat;
+    background-position: 100%;
+    background-size: cover;
+
+    .info {
+        color: rgba(0, 0, 0, 0.749);
+        display: flex;
+        flex-direction: column;
+        width: 35rem;
+
+        h1 {
+            font-size: 5rem;
+        }
+
+        h5 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 1rem 0;
+        }
+
+        p {
+            font-size: larger;
+            font-weight: 600;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 3rem;
+            background-color: rgba(173, 216, 230, 0.404);
+            padding: 1.5rem;
+            border-radius: 20px;
+            box-shadow: inset 0 0 4px 4px lightblue;
+
+            .form-control {
+                position: relative;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+
+                &:last-child {
+                    justify-content: space-between;
+                    align-items: center;
+                    flex-direction: row;
+                }
+
+                img {
+                    position: absolute;
+                    top: 3.5rem;
+                    right: 1.5rem;
+                    cursor: pointer;
+                }
+
+                label {
+                    font-size: x-large;
+
+                    span {
+                        color: rgb(255, 62, 62);
+                    }
+                }
+
+                input {
+                    font-size: x-large;
+                    color: rgba(0, 0, 0, 0.8);
+                    outline: none;
+                    margin: 1rem 0;
+                    padding: 0.5rem;
+                    border: none;
+                    background-color: transparent;
+                    border-bottom: 3px solid rgba(0, 0, 0, 0.5);
+
+                    // &:nth-child(2) {}
+                }
+
+            }
+
+            input[type="button"] {
+                background: linear-gradient(68.08deg, #9083D5 9.64%, #807593 92.49%);
+                padding: 1rem 2.5rem;
+                border: none;
+                width: 30%;
+                color: white;
+                font-size: larger;
+                border-radius: 10px;
+                margin: 1rem 0;
+            }
+        }
+    }
+
+    .image {
+        margin-bottom: -10rem;
+        img {
+            width: 48rem;
+        }
+    }
+}
