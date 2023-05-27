@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 export default function useFetch(Method) {
+  
   function setToken(params) {
     if (window.location.pathname.startsWith("/doctor")) {
       console.log("at usefetch doctor")

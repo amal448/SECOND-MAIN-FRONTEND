@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import AdminAddDoctor from "../../../components/adminComponents/addDoctor/AddDoctor";
 import Sidebar from "../../../components/adminComponents/sidebar";
 import Navbar from "../../../components/adminComponents/navbar";
+import { useNavigate } from "react-router-dom";
 import "./style.scss";
 function AddDoctor() {
 

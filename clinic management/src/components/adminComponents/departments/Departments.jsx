@@ -1,7 +1,7 @@
 import "./style.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { depColumns } from "../../../DepartmentDatatable";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 // import Swal from "sweetalert2";
 
@@ -33,21 +33,21 @@ const Departments = ({ departments,setDepartments}) => {
     <div className="datatable">
       <div className="datatableTitle">
         Departments
-        {/* <Link to="/admin/addDepartment" className="link">
-          Add New
+        
+        {/* <Link to="/admin/add-department" className="link">
         </Link> */}
         <button className="link" >
-          Add New
+          Add New <Link to="/admin/add-department" className="link"></Link>
         </button>
       </div>
-      {/* <DataGrid
+      <DataGrid
         className="datagrid"
         rows={departments}
         getRowId={(row) => row._id}
         columns={depColumns.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}
-      /> */}
+      />
 
     </div>
   );

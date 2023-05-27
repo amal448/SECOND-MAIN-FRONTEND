@@ -8,13 +8,16 @@ import "react-datepicker/dist/react-datepicker.css";
 import moment from 'moment'
 import axios from "axios";
 import useFetch from "../../../hooks/useFetch";
+import {  checkEmail, checkMobileNumberHasAnyCharacter, checkPasswordHasSpecialCharacters, checkStringHasNumbers } from "../../../util/utilFunctions";
+
 
 const AddDoctor = () => {
      const postRequest = useFetch("POST");
-    const [certificate, setCertificate] = useState([])
+      const navigate = useNavigate();
+    // const [certificate, setCertificate] = useState([])
     const [image, setImage] = useState([])
 
-    const [certificateErr, setCertificateErr] = useState(false)
+    // const [certificateErr, setCertificateErr] = useState(false)
     const [imageErr, setImageErr] = useState(false)
 
     const [applyData, setApplyData] = useState({
@@ -50,71 +53,93 @@ console.log(e);
         setApplyData((prev) => {
             return {
                 ...prev,
-                [e.target.name]: e.target.value,
+                [e.target.name]: String(e.target.value),
             };
         });
     }
 
-    function handleOnSubmit(e) {
+    function handleOnSubmit(e) { 
 
         e.preventDefault();
-        console.log("handlesubmitOn");
+        // console.log("handlesubmitOn");
         console.log("applyData", applyData);
-        if(false)
-        {
+        // if(false)
+        // {
 
-        // if (applyData.firstName == "" || applyData.lastName == "" || applyData.address == "" || applyData.department == "" || applyData.dob == "" || applyData.email == "" || applyData.mobile == "" || applyData.password) {
-        //     for (const key in applyData) {
-        //         if (applyData[key] === "") {
-        //             setApplyDataErr((prev) => {
-        //                 return {
-        //                     ...prev,
-        //                     [key]: "please provide",
-        //                 };
-        //             });
-        //         } else {
-        //             setApplyDataErr((prev) => {
-        //                 return {
-        //                     ...prev,
-        //                     [key]: "",
-        //                 };
-        //             });
-        //         }
-        //     }
-        //     return;
-        }
-        else {
-            console.log(image[0]);
-            let errorFlag = false;
+        if (applyData.firstName == "" || applyData.lastName == "" || applyData.address == "" || applyData.department == "" || applyData.dob == null || applyData.email == "" || applyData.mobile == "" || applyData.password == "") {
+            // console.log(typeof applyData.dob);
             for (const key in applyData) {
-
-                let message = "";
-                if (
-                    (key == "firstName" || key == "lastName")
-                    //  &&
-                    // checkStringHasNumbers(applyData[key])
-                ) {
-                    errorFlag = true;
-                    message = key + "doesn't include numbers";
+                if (applyData[key] === "") {
+                    setApplyDataErr((prev) => {
+                        return {
+                            ...prev,
+                            [key]: "please provide ",
+                        };
+                    });
+                } 
+                else {
+                    setApplyDataErr((prev) => {
+                        return {
+                            ...prev,
+                            [key]: "",
+                        };
+                    });
                 }
             }
+            console.log("failed");
+            return;
+        }
+        else {
+            console.log("pass");
+            // console.log(image[0]);
+            // console.log("but whyyy");
+       
+            // if (!checkEmail(applyData.email)) {
+            //     setApplyDataErr(prev => {
+            //       return {
+            //         ...prev,
+            //         email: "please provide valid"
+            //       }
+            //     })
+            //     return;
+            //   } 
 
+            if ( image?.length == 0) {
 
-
-            if (certificate?.length == 0 || image?.length == 0) {
                 console.log("certificate and image")
-                if (certificate?.length == 0) {
-                    setCertificateErr(true)
-                    console.log("hi certi");
-                }
+            
                 if (image?.length == 0) {
                     setImageErr(true)
                     console.log("hi image");
 
                 }
-                // return;
+                return;
             }
 
+            if (!checkPasswordHasSpecialCharacters(applyData.password)) {
+                setApplyDataErr((prev) => {
+            return {
+            ...prev,
+            password: "please include special characters",
+                     };
+            });
+            return;
+            }
+            //  if (!checkMobileNumberHasAnyCharacter(applyData.mobile)) {
+            //     setApplyDataErr((prev) => {
+            // return {
+            // ...prev,
+            //  mobile: "mobile number is invalid",
+            //     };
+            // });
+            // return;
+            // }
+
+        }
+
+
+
+        console.log("llllllllllllllllllll");
             try {
                 console.log("hi try");
                 function uploadFile() {
@@ -155,10 +180,12 @@ console.log(e);
                     })
 
 
+
+
                     // Once all the files are uploaded
                     Promise.all(uploaders).then((res) => {
                         // ... perform after upload is successful operation
-                        console.log(res)
+                        console.log("lalalalalalalal",res)
 
                         let obj = {}
                         // obj[res[1].name] = res[1].file
@@ -166,11 +193,12 @@ console.log(e);
                         let Applicantdata = { ...applyData, ...obj }
                         //  Appicantdata={...applyData}
 
-                        console.log("Appicantdata", Applicantdata)
+                        console.log("Applicantdata123", Applicantdata)
                         postRequest("/admin/add-doctor", Applicantdata).then((res) => {
 
                             console.log("before moving on to next")
-                            navigate("/")
+                            console.log("res",res);
+                            navigate("/admin/doctor")
                         }).catch((err) => {
                             setApplyDataErr((prev) => {
                                 return {
@@ -187,18 +215,14 @@ console.log(e);
 
                 uploadFile()
 
-                console.log("Applicantdata outside", Appicantdata);
-
-
-
-
-
-
+                // console.log("Applicantdata outside", Appicantdata);
+                console.log("Applicantdata outside", Applicantdata);
                 // console.log("second axios working started");
             } catch (err) {
                 console.log("error occured", err.message);
             }
-        }
+            return
+        
     }
 
 
@@ -247,7 +271,7 @@ console.log(e);
 
                                                 </div>
                                                 {imageErr && (
-                                                    <span>* Please Provide the certificate pannniiii</span>
+                                                    <span  class="text-red-500 font-bold">* Please Provide the Image pannniiii</span>
                                                 )}
 
                                                 <input name="image" id="dropzone-file" onChange={(e) => setImage([e.target.files[0]])} type="file" class="hidden" accept='image/*' />
@@ -256,7 +280,7 @@ console.log(e);
                                         <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5 mt-5">
                                             <div class="md:col-span-5">
                                                 <label for="full_name">First Name  {applyDataErr.firstName && (
-                                                    <span>* {applyDataErr.firstName}</span>
+                                                    <span  class="text-red-500 font-bold">* {applyDataErr.firstName}</span>
                                                 )}</label>
                                                 <input type="text" onChange={handleOnchange} name="firstName" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                                                 />
@@ -264,25 +288,25 @@ console.log(e);
 
                                             <div class="md:col-span-5">
 
-                                                <label for="full_name">Last Name  {applyDataErr.lastName && <span>* {applyDataErr.lastName}</span>}  </label>
+                                                <label for="full_name">Last Name  {applyDataErr.lastName && <span  class="text-red-500 font-bold">* {applyDataErr.lastName}</span>}  </label>
                                                 <input type="text" name="lastName" onChange={handleOnchange} id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                                                 />
                                             </div>
 
                                             <div class="md:col-span-5">
-                                                <label for="email">Email Address  {applyDataErr.email && <span>* {applyDataErr.email}</span>}</label>
+                                                <label for="email">Email Address  {applyDataErr.email && <span  class="text-red-500 font-bold">* {applyDataErr.email}</span>}</label>
                                                 <input type="text" name="email" onChange={handleOnchange} id="email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="email@domain.com"
                                                 />
                                             </div>
 
                                             <div class="md:col-span-5">
-                                                <label for="email">Address {applyDataErr.address && <span>* {applyDataErr.address}</span>} </label>
+                                                <label for="email">Address {applyDataErr.address && <span  class="text-red-500 font-bold">* {applyDataErr.address}</span>} </label>
                                                 <input type="text" name="address" onChange={handleOnchange} id="email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                                                 />
                                             </div>
 
                                             <div class="md:col-span-3">
-                                                <label for="address">Mobile Number {applyDataErr.mobile && <span>* {applyDataErr.mobile}</span>}</label>
+                                                <label for="address">Mobile Number {applyDataErr.mobile && <span  class="text-red-500 font-bold">* {applyDataErr.mobile}</span>}</label>
                                                 <input type="number" name="mobile" onChange={handleOnchange} id="address" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder=""
                                                 />
                                             </div>
@@ -291,7 +315,7 @@ console.log(e);
 
 
                                             <div className='md:col-span-2'>
-                                                <label for="city">Department {applyDataErr.department && <span>* {applyDataErr.department}</span>} </label>
+                                                <label for="city">Department {applyDataErr.department && <span  class="text-red-500 font-bold">* {applyDataErr.department}</span>} </label>
                                                 <select type="text" name="department" onChange={handleOnchange} id="department" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" >
 
                                                         <option>Ortho</option>
@@ -302,7 +326,7 @@ console.log(e);
                                             </div>
 
                                             <div class="md:col-span-2">
-                                                <label for="city">Date Of birth {applyDataErr.dob && <span>* {applyDataErr.dob}</span>}</label>
+                                                <label for="city">Date Of birth {applyDataErr.dob && <span  class="text-red-500 font-bold">* {applyDataErr.dob}</span>}</label>
                                                 <DatePicker name="dob" onChange={(date) => setApplyData(prev => {
                                                     console.log(date);
                                                     return {
@@ -314,7 +338,7 @@ console.log(e);
                                             </div>
 
                                             <div class="md:col-span-3">
-                                                <label for="address">Password {applyDataErr.password && <span>* {applyDataErr.password}</span>}</label>
+                                                <label for="address">Password {applyDataErr.password && <span  class="text-red-500 font-bold">* {applyDataErr.password}</span>}</label>
                                                 <input type="password" onChange={handleOnchange} name="password" id="address" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder=""
                                                 />
                                             </div>

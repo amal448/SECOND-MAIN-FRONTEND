@@ -20,11 +20,13 @@ import DoctorNavBar from "./components/doctorComponents/navbar";
 import AboutPage from "./pages/client/About";
 import EditDoctor from "./pages/admin/editDoctor";
 import DoctorSignup from "./pages/doctor/signup";
-// import ApplyDoctor from "./pages/client/Addoctor";
+import ApplyDoctor from "./pages/client/Addoctor";
 import Departments from "./pages/admin/department";
 import DoctorApproval from "./pages/admin/Approvals";
 import AddDepartment from "./components/adminComponents/addDepartment/AddDepartment";
-
+import BookingSlot from "./pages/client/booking";
+import DoctorsList from "./pages/client/Doctorlist";
+import ViewApproval from "./components/adminComponents/Approvals";
 const routes = createBrowserRouter([
   {
     path: "/admin/login",
@@ -52,6 +54,15 @@ const routes = createBrowserRouter([
     element: (
       <>
         <UserLogin />
+      </>
+    ),
+  },
+  {
+    path: "/booking",
+    element: (
+      <>
+       <UserNavBar />
+        <BookingSlot />
       </>
     ),
   },
@@ -134,14 +145,14 @@ const routes = createBrowserRouter([
       </>
     ),
   },
-  // {
-  //   path: "/apply-doctor",
-  //   element: (
-  //     <>
-  //   <ApplyDoctor />
-  //     </>
-  //   ),
-  // },
+  {
+    path: "/apply-doctor",
+    element: (
+      <>
+    <ApplyDoctor />
+      </>
+    ),
+  },
   {
     path: "/admin/add-department",
     element: (
@@ -163,6 +174,22 @@ const routes = createBrowserRouter([
     element: (
       <>
       <DoctorApproval />
+      </>
+    ),
+  },
+  {
+    path: "/dep-doctors",
+    element: (
+      <>
+      <DoctorsList />
+      </>
+    ),
+  },
+  {
+    path: "/admin/view-apply/:id",
+    element: (
+      <>
+      <ViewApproval />
       </>
     ),
   },
