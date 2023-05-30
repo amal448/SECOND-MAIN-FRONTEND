@@ -1,4 +1,4 @@
-import React,{useLayoutEffect} from 'react';
+import React,{useLayoutEffect,useState} from 'react';
 import siteLogo from './../../../assets/svg/site-logo.svg';
 import useFetch from '../../../hooks/useFetch';
 import { useDispatch,useSelector } from 'react-redux';
@@ -6,12 +6,17 @@ import { useDispatch,useSelector } from 'react-redux';
 
 function BookingSlot() {
 const getRequest =useFetch('GET')
-const dispatch=useDispatch()
-// const {doctors}=useSelector(state => state.root.user)
+
+
+    const[department,setDepartments]=useState([])
+
 
 useLayoutEffect(()=>{
-    getRequest('/user')
-})
+    getRequest('/user/get-departments').then(res=> {
+        console.log("res12345",res);
+        setDepartments(res.response);
+    })
+},[])
     return (
         <div className="flex items-center justify-center flex-col bg-white">
             <div className="bg-[#F4F5FA] p-10 rounded-xl">
@@ -24,11 +29,12 @@ useLayoutEffect(()=>{
                     </div>
                 </div>
 
+{}
                 <div className="flex justify-start flex-wrap">
-                    <div className="bg-[#FFFBEC] rounded-xl m-3">
+                    {department.map(dep => (<div className="bg-[#FFFBEC] rounded-xl m-3">
                         <div className="flex flex-col p-8 rounded-xl bg-white shadow-xl translate-x-4 translate-y-4 w-96 md:w-auto">
                             <img src={siteLogo} className="w-8" />
-                            <div className="mt-3 font-semibold text-lg">DEPARTMENT NAME</div>
+                            <div className="mt-3 font-semibold text-lg">{dep.department}</div>
                             <div className="text-sm font-light">Available Slot</div>
                             <div className="my-4">
                                 <span className="font-bold text-base">Doctor's Count-</span>
@@ -38,78 +44,8 @@ useLayoutEffect(()=>{
                                 Book
                             </button>
                         </div>
-                    </div>
-                    <div className="bg-[#FFFBEC] rounded-xl m-3">
-                        <div className="flex flex-col p-8 rounded-xl bg-white shadow-xl translate-x-4 translate-y-4 w-96 md:w-auto">
-                            <img src={siteLogo} className="w-8" />
-                            <div className="mt-3 font-semibold text-lg">DEPARTMENT NAME</div>
-                            <div className="text-sm font-light">Available Slot</div>
-                            <div className="my-4">
-                                <span className="font-bold text-base">Doctor's Count-</span>
-                                <span className="font-light text-sm">1</span>
-                            </div>
-                            <button className="bg-[#F4F5FA] px-4 py-3 rounded-full border border-[#F0F0F6] shadow-xl mt-4">
-                                Book
-                            </button>
-                        </div>
-                    </div>
-                    <div className="bg-[#FFFBEC] rounded-xl m-3">
-                        <div className="flex flex-col p-8 rounded-xl bg-white shadow-xl translate-x-4 translate-y-4 w-96 md:w-auto">
-                            <img src={siteLogo} className="w-8" />
-                            <div className="mt-3 font-semibold text-lg">DEPARTMENT NAME</div>
-                            <div className="text-sm font-light">Available Slot</div>
-                            <div className="my-4">
-                                <span className="font-bold text-base">Doctor's Count-</span>
-                                <span className="font-light text-sm">1</span>
-                            </div>
-                            <button className="bg-[#F4F5FA] px-4 py-3 rounded-full border border-[#F0F0F6] shadow-xl mt-4">
-                                Book
-                            </button>
-                        </div>
-                    </div>
-                    <div className="bg-[#FFFBEC] rounded-xl m-3">
-                        <div className="flex flex-col p-8 rounded-xl bg-white shadow-xl translate-x-4 translate-y-4 w-96 md:w-auto">
-                            <img src={siteLogo} className="w-8" />
-                            <div className="mt-3 font-semibold text-lg">DEPARTMENT NAME</div>
-                            <div className="text-sm font-light">Available Slot</div>
-                            <div className="my-4">
-                                <span className="font-bold text-base">Doctor's Count-</span>
-                                <span className="font-light text-sm">1</span>
-                            </div>
-                            <button className="bg-[#F4F5FA] px-4 py-3 rounded-full border border-[#F0F0F6] shadow-xl mt-4">
-                                Book
-                            </button>
-                        </div>
-                    </div>
-                    <div className="bg-[#FFFBEC] rounded-xl m-3">
-                        <div className="flex flex-col p-8 rounded-xl bg-white shadow-xl translate-x-4 translate-y-4 w-96 md:w-auto">
-                            <img src={siteLogo} className="w-8" />
-                            <div className="mt-3 font-semibold text-lg">DEPARTMENT NAME</div>
-                            <div className="text-sm font-light">Available Slot</div>
-                            <div className="my-4">
-                                <span className="font-bold text-base">Doctor's Count-</span>
-                                <span className="font-light text-sm">1</span>
-                            </div>
-                            <button className="bg-[#F4F5FA] px-4 py-3 rounded-full border border-[#F0F0F6] shadow-xl mt-4">
-                                Book
-                            </button>
-                        </div>
-                    </div>
-                    <div className="bg-[#FFFBEC] rounded-xl m-3">
-                        <div className="flex flex-col p-8 rounded-xl bg-white shadow-xl translate-x-4 translate-y-4 w-96 md:w-auto">
-                            <img src={siteLogo} className="w-8" />
-                            <div className="mt-3 font-semibold text-lg">DEPARTMENT NAME</div>
-                            <div className="text-sm font-light">Available Slot</div>
-                            <div className="my-4">
-                                <span className="font-bold text-base">Doctor's Count-</span>
-                                <span className="font-light text-sm">1</span>
-                            </div>
-                            <button className="bg-[#F4F5FA] px-4 py-3 rounded-full border border-[#F0F0F6] shadow-xl mt-4">
-                                Book
-                            </button>
-                        </div>
-                    </div>
-                    
+                    </div>))}
+
 
                     {/* Add more cards with the same structure */}
                 </div>

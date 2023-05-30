@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-// import { createDepartments, getAllDepartments } from '../../../Helpers/adminHelper';
-// import { useFormik } from 'formik'
 // import { Link, useNavigate } from "react-router-dom";
-import toast, { Toaster } from 'react-hot-toast'
 import useFetch from '../../../hooks/useFetch'
+import Swal from 'sweetalert2';
+
 
 
 const AddDepartment = () => {
@@ -30,7 +29,7 @@ const AddDepartment = () => {
             console.log("entered");
             postRequest("/admin/add-department",departments).then((res)=>{
 
-            console.log("enterd the post ")
+            console.log("enterd the post ") 
                 navigate("/admin/department")
             }).catch((err)=>{
                 setDepartmentErr((prev)=>{

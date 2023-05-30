@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import swal from 'sweetalert'
-
+import { Link } from "react-router-dom";
 import siteLogo from './../../../assets/svg/site-logo.svg'
 import { userLogout } from '../../../store/slice/userSlice'
 import { useDispatch, useSelector } from 'react-redux'
@@ -37,16 +37,23 @@ function logoutHandler(){
       </div>
       <ul>
         <li>
+        <Link to="/" style={{ textDecoration: 'none' }}>
           Home
+          </Link>
         </li>
-       <li>
+       <li>          
+       <Link to="/booking" style={{ textDecoration: 'none' }}>
           Appointment
+        </Link>
         </li>
         <li>
           Services
         </li>
         <li>
-          About US
+        <Link to="/about" style={{ textDecoration: 'none' }}>
+          About US             
+          
+        </Link>
         </li>
         <li>
           Contact US

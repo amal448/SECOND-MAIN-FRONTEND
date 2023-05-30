@@ -6,6 +6,9 @@ import "./style.scss"
 import Sidebar from "../../../components/adminComponents/sidebar";
 import Navbar from "../../../components/adminComponents/navbar";
 import DoctorApplication from '../../../components/adminComponents/doctorApproval';
+
+
+
 function DoctorApproval () {
   const getRequest=useFetch("GET")
   

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./style.scss";
 import useFetch from "../../../hooks/useFetch";
@@ -10,9 +10,12 @@ import { colors } from "@mui/material";
 function ApplyDoctor() {
   const PostRequest = useFetch("POST");
   const navigate = useNavigate();
+  const GetRequest=useFetch("GET")
 
   const [certificate, setCertificate] = useState([])
   const [image, setImage] = useState([])
+
+  const [departments,setDepartments]=useState([])
 
   const [certificateErr, setCertificateErr] = useState(false)
   const [imageErr, setImageErr] = useState(false)
@@ -44,6 +47,17 @@ function ApplyDoctor() {
     CTC: "",
   });
 
+  useEffect(()=>{
+
+    GetRequest('/user/get-departments').then(res =>{
+        setDepartments(() => {
+          return [...res.response]
+        });
+    }).catch(error => {
+          console.log(error);
+        })
+    },[])
+
 
   function handleOnchange(e) {
     // console.log(e.target);
@@ -53,6 +67,7 @@ function ApplyDoctor() {
       return {
         ...prev,
         [e.target.name]: e.target.value,
+        
       };
     });
   }
@@ -174,7 +189,7 @@ function ApplyDoctor() {
            PostRequest("/user/apply-doctor",Applicantdata).then((res)=>{
 
             console.log("before moving on to next")
-            navigate("/")
+            navigate("/response")
            }).catch((err)=>{
             setApplyDataErr((prev)=>{
               return {
@@ -386,17 +401,23 @@ function ApplyDoctor() {
                         <select
                             type="text"
                             name="department"
+                             value={applyData.department}
                             onChange={handleOnchange}
                             id="department"
                             className="mt-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900"
                             // placeholder="Expecting Salary "
                         >
-                           <option hidden>Department</option>
+                           {/* <option hidden>Department</option>
                             <option>America</option>
                             <option>Japan</option>
                             <option>India</option>
-                            <option>Nepal</option>
-
+                            <option>Nepal</option> */}
+                           {departments && departments?.map((item, i) =>{
+                            return <>
+                             <option key={i} value={item.department}>{item.department}</option>
+                            </>
+                             }
+                             )}
                         </select>
                     </div>
 
@@ -418,13 +439,7 @@ function ApplyDoctor() {
               }        />
                             </label>
                         </div>
-{/* 
-                        <p class="mt-5">This file input component is part of a larger, open-source library of Tailwind CSS components. Learn
-                            more
-                            by going to the official <a class="text-blue-600 hover:underline"
-                                href="#" target="_blank">Flowbite Documentation</a>.
-                        </p> */}
-                        {/* <script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"></script> */}
+
                     </div>
 
                     <div class="max-w-2xl mx-auto">
@@ -455,127 +470,8 @@ function ApplyDoctor() {
 
 
 
-
-
-
-
-                    {/* <div className="flex flex-col my-4">
-        <label htmlFor="password" className="text-gray-700">
-          Password
-        </label>
-        <div className="relative">
-          <input
-            type={showPassword ? 'text' : 'password'}
-            name="password"
-            id="password"
-            className="mt-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900 pr-10"
-            placeholder="Enter your password"
-          />
-          <button
-            type="button"
-            className="absolute top-1/2 right-2 transform -translate-y-1/2 text-gray-600 focus:outline-none"
-            onClick={handlePasswordVisibility}
-          >
-            {showPassword ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 5a3 3 0 100 6 3 3 0 000-6zm0 5a2 2 0 100-4 2 2 0 000 4zM4.343 9.657a6 6 0 018.485-8.485l-1.415 1.414a4 4 0 10-5.657 5.657L4.343 9.657zM9 13.535l1.464 1.464A6 6 0 019.536 20H9v-1.536A6 6 0 015.071 16.07L6.536 14.607A4 4 0 009 13.535z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 12a2 2 0 100-4 2 2 0 000 4zM6 9a3 3 0 114.898 2.282l.326.816a1 1 0 001.853-.554l-.326-.816A3 3 0 016 9zm9-3a7 7 0 11-14 0 7 7 0 0114 0zm-1.464-2.121l-9 9-1.415-1.414 9-9 1.415 1.414zM16 9a1 1 0 100 2 1 1 0 000-2z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            )}
-          </button>
-        </div>
-      </div>
-
-      <div className="flex flex-col my-4">
-        <label htmlFor="passwordConfirmation" className="text-gray-700">
-          Confirm Password
-        </label>
-        <div className="relative">
-          <input
-            type={showPasswordConfirmation ? 'text' : 'password'}
-            name="passwordConfirmation"
-            id="passwordConfirmation"
-            className="mt-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900 pr-10"
-            placeholder="Confirm your password"
-          />
-          <button
-            type="button"
-            className="absolute top-1/2 right-2 transform -translate-y-1/2 text-gray-600 focus:outline-none"
-            onClick={handlePasswordConfirmationVisibility}
-          >
-            {showPasswordConfirmation ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 5a3 3 0 100 6 3 3 0 000-6zm0 5a2 2 0 100-4 2 2 0 000 4zM4.343 9.657a6 6 0 018.485-8.485l-1.415 1.414a4 4 0 10-5.657 5.657L4.343 9.657zM9 13.535l1.464 1.464A6 6 0 019.536 20H9v-1.536A6 6 0 015.071 16.07L6.536 14.607A4 4 0 009 13.535z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 12a2 2 0 100-4 2 2 0 000 4zM6 9a3 3 0 114.898 2.282l.326.816a1 1 0 001.853-.554l-.326-.816A3 3 0 016 9zm9-3a7 7 0 11-14 0 7 7 0 0114 0zm-1.464-2.121l-9 9-1.415-1.414 9-9 1.415 1.414zM16 9a1 1 0 100 2 1 1 0 000-2z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            )}
-          </button>
-        </div>
-      </div>
-
-      <div className="flex items-center mt-6">
-        <input
-          type="checkbox"
-          name="terms"
-          id="terms"
-          className="text-blue-600 focus:ring-0 border-gray-300 rounded"
-        />
-        <label htmlFor="terms" className="text-sm text-gray-700 ml-2">
-          I agree to the{' '}
-          <a
-            href="#"
-            className="text-blue-600 hover:text-blue-700 hover:underline"
-            title="Terms and Conditions"
-          >
-            Terms and Conditions
-          </a>
-        </label>
-      </div> */}
-
-<div class='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
-                    <button  onClick={handleOnSubmit} class='w-auto bg-blue-500 hover:bg-blue-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' >Approve</button>
+      <div class='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
+                    <button  onClick={handleOnSubmit} class='w-auto bg-blue-500 hover:bg-blue-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' >SUBMIT</button>
                 </div>
                 </form>
             </div>

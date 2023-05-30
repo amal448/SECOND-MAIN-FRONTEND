@@ -26,8 +26,15 @@ import DoctorApproval from "./pages/admin/Approvals";
 import AddDepartment from "./components/adminComponents/addDepartment/AddDepartment";
 import BookingSlot from "./pages/client/booking";
 import DoctorsList from "./pages/client/Doctorlist";
+import Activate from "./pages/client/activate";
 import ViewApproval from "./components/adminComponents/Approvals";
+import PageResponse from "./components/userComponents/RequestResponse";
+
+
 const routes = createBrowserRouter([
+
+
+  //Admin
   {
     path: "/admin/login",
     element: <AdminLogin />,
@@ -38,39 +45,6 @@ const routes = createBrowserRouter([
       <>
         {/* <AdminNavBar /> */}
         <AdminHome />
-      </>
-    ),
-  },
-  {
-    path: "/signup",
-    element: (
-      <>
-        <Signup />
-      </>
-    ),
-  },
-  {
-    path: "/login",
-    element: (
-      <>
-        <UserLogin />
-      </>
-    ),
-  },
-  {
-    path: "/booking",
-    element: (
-      <>
-       <UserNavBar />
-        <BookingSlot />
-      </>
-    ),
-  },
-  {
-    path: "/doctor/login",
-    element: (
-      <>
-        <DoctorLogin />
       </>
     ),
   },
@@ -103,53 +77,10 @@ const routes = createBrowserRouter([
     ),
   },
   {
-    path: "/",
-    element: (
-      <>
-  <UserNavBar />
-  <UserHome /> 
-      </>
-    ),
-  },
-  {
-    path: "/doctor/home",
-    element: (
-      <>
-      <DoctorNavBar />
-      <DoctorHome />
-      </>
-    ),
-  },
-  {
-    path: "/about",
-    element: (
-      <>
-    <UserNavBar />
-    <AboutPage />
-      </>
-    ),
-  },
-  {
     path: "/admin/doctors/edit-doctor",
     element: (
       <>
     <EditDoctor />
-      </>
-    ),
-  },
-  {
-    path: "/doctor/signup",
-    element: (
-      <>
-    <DoctorSignup />
-      </>
-    ),
-  },
-  {
-    path: "/apply-doctor",
-    element: (
-      <>
-    <ApplyDoctor />
       </>
     ),
   },
@@ -178,14 +109,6 @@ const routes = createBrowserRouter([
     ),
   },
   {
-    path: "/dep-doctors",
-    element: (
-      <>
-      <DoctorsList />
-      </>
-    ),
-  },
-  {
     path: "/admin/view-apply/:id",
     element: (
       <>
@@ -193,6 +116,131 @@ const routes = createBrowserRouter([
       </>
     ),
   },
+
+
+
+  //User
+  {
+    path: "/signup",
+    element: (
+      <>
+        <Signup />
+      </>
+    ),
+  },
+  {
+    path: "/login",
+    element: (
+      <>
+        <UserLogin />
+      </>
+    ),
+  },
+  {
+    path: "/booking",
+    element: (
+      <>
+       <UserNavBar />
+        <BookingSlot />
+      </>
+    ),
+  },
+  {
+    path: "/about",
+    element: (
+      <>
+       <UserNavBar />
+        <AboutPage />
+      </>
+    ),
+  },
+  {
+    path: "/doctor/login",
+    element: (
+      <>
+        <DoctorLogin />
+      </>
+    ),
+  },
+  
+  {
+    path: "/",
+    element: (
+      <>
+  <UserNavBar />
+  <UserHome /> 
+      </>
+    ),
+  },
+  {
+    path: "/response",
+    element: (
+      <>
+      <PageResponse />
+      </>
+    ),
+  },
+  {
+    path: "/activate-account/:token",
+    element: (
+      <>
+      <Activate />
+      </>
+    ),
+  },
+ 
+  {
+    path: "/contact",
+    element: (
+      <>
+    <UserNavBar />
+    {/* <AboutPage /> */}
+
+      </>
+    ),
+  },
+  {
+    path: "/apply-doctor",
+    element: (
+      <>
+    <ApplyDoctor />
+      </>
+    ),
+  },
+  {
+    path: "/dep-doctors",
+    element: (
+      <>
+      <DoctorsList />
+      </>
+    ),
+  },
+  
+  //Doctor
+
+  {
+    path: "/doctor/signup",
+    element: (
+      <>
+    <DoctorSignup />
+      </>
+    ),
+  },
+  {
+    path: "/doctor/home",
+    element: (
+      <>
+      <DoctorNavBar />
+      <DoctorHome />
+      </>
+    ),
+  },
+ 
+ 
+ 
+ 
+ 
+ 
 ]);
 
 function App() {

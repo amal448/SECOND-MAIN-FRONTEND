@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import axios from "axios";
 
 export default function useFetch(Method) {
-  
   function setToken(params) {
     if (window.location.pathname.startsWith("/doctor")) {
-      console.log("at usefetch doctor")
-      
+      console.log("at usefetch doctor");
+
       return JSON.parse(localStorage.getItem("doctor-token")) || "";
     } else if (window.location.pathname.startsWith("/admin")) {
       return JSON.parse(localStorage.getItem("admin-token")) || "";
@@ -23,28 +22,34 @@ export default function useFetch(Method) {
 
   return function fetchData(url, data = {}) {
     if (!URL.endsWith(url)) URL = BASEURL.concat(url);
-    
+
     return new Promise((resolve, reject) => {
       if (METHOD == null) {
         reject({ type: "", message: "method is not applicable" });
       }
-      console.log("data console at use fetch",data);
+      console.log("data console at use fetch", data);
       try {
         axios({
           method: METHOD,
           url: URL,
           data: JSON.stringify(data),
-          
+
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         })
           .then((res) => {
-            console.log("res",res)
+            console.log("res", res);
             resolve(res?.data);
           })
           .catch((err) => {
+            if(window.location.pathname.includes("/activate-account")) {
+              return
+            }
+            if (err?.response?.data?.active === false) {
+              window.location = "/login";
+            }
             if (err?.response?.data?.logedIn === false) {
               if (window.location.pathname.startsWith("/doctor")) {
                 window.location = "/doctor/login";
@@ -57,8 +62,8 @@ export default function useFetch(Method) {
                 return;
               }
             }
-            console.log("catch errrrr",err);
-            console.log("catch err",err?.response?.data);
+            console.log("catch errrrr", err);
+            console.log("catch err", err?.response?.data);
             reject(err?.response?.data);
           });
       } catch (error) {

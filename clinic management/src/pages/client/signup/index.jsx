@@ -143,8 +143,10 @@ function Signup() {
       postRequest("/user/signup", userData)
         .then((res) => {
           console.log(res);
-          localStorage.setItem("user-token", JSON.stringify(res.token));
-          navigate("/login");
+          if(res.ok) {
+            navigate("/login");
+            // localStorage.setItem("user-token", JSON.stringify(res.token));
+          }
         })
         .catch((err) => {
           console.log(err);
