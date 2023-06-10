@@ -50,33 +50,33 @@ const AddDepartment = () => {
     }
 
     return (
-        <div class="fixed inset-0 flex justify-center items-center backdrop-blur bg-gray-200">
-        <div class="bg-white rounded-xl shadow-lg dark:bg-gray-800 dark:border-gray-700 p-6">
+        <div className="fixed inset-0 flex justify-center items-center backdrop-blur bg-gray-200">
+        <div className="bg-white rounded-xl shadow-lg dark:bg-gray-800 dark:border-gray-700 p-6">
 
-        <main id="content" role="main" class="w-full max-w-md mx-auto p-6  bg-gray-100">
-    <div class="mt-7 bg-white  rounded-xl shadow-lg dark:bg-gray-800 dark:border-gray-700">
-      <div class="p-4 sm:p-7  bg-gray-50">
-        <div class="text-center">
-          <h1 class="block text-2xl font-bold text-gray-800 dark:text-white">ADD DEPARTMENT</h1>
-          {/* <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+        <main id="content" role="main" className="w-full max-w-md mx-auto p-6  bg-gray-100">
+    <div className="mt-7 bg-white  rounded-xl shadow-lg dark:bg-gray-800 dark:border-gray-700">
+      <div className="p-4 sm:p-7  bg-gray-50">
+        <div className="text-center">
+          <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">ADD DEPARTMENT</h1>
+          {/* <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             Remember your password?
-            <a class="text-blue-600 decoration-2 hover:underline font-medium" href="#">
+            <a className="text-blue-600 decoration-2 hover:underline font-medium" href="#">
               Login here
             </a>
           </p> */}
         </div>
 
-        <div class="mt-5">
+        <div className="mt-5">
           <form>
-            <div class="grid gap-y-4">
+            <div className="grid gap-y-4">
               <div>
-                <label for="email" class="block text-sm font-bold ml-1 mb-2 dark:text-white">Department Name</label>
-                <div class="relative">
-                  <input type="text" id="department"onChange={handleOnchange} name="department" class="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" required aria-describedby="email-error" />
+                <label htmlfor="email" className="block text-sm font-bold ml-1 mb-2 dark:text-white">Department Name</label>
+                <div className="relative">
+                  <input type="text" id="department"onChange={handleOnchange} name="department" className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" required aria-describedby="email-error" />
                 </div>
-                {/* <p class="hidden text-xs text-red-600 mt-2" id="email-error">Please include a valid email address so we can get back to you</p> */}
+                {/* <p className="hidden text-xs text-red-600 mt-2" id="email-error">Please include a valid email address so we can get back to you</p> */}
               </div>
-              <button type="submit" onClick={handleOnSubmit} class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">SUBMIT</button>
+              <button type="submit" onClick={handleOnSubmit} className="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">SUBMIT</button>
             </div>
           </form>
         </div>

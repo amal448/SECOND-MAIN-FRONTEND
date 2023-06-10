@@ -9,7 +9,6 @@ import closedEYe from "../../../assets/images/closed-eye.png";
 
 import { useDispatch } from 'react-redux';
 import { userLogin } from "../../../store/slice/userSlice";
-
 import "./style.scss";
 
 function UserLogin() {
@@ -17,7 +16,7 @@ function UserLogin() {
   const [userDataErr, setUserDataErr] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
-
+  const navigate=useNavigate()
   const postRequest = useFetch("POST");
 
   function handleOnchange(e) {
@@ -87,8 +86,13 @@ function UserLogin() {
           console.log("at login postrequest")
             localStorage.setItem('user-token', JSON.stringify(res.token))
             localStorage.setItem('logedIn', true)
-            window.location = '/'
+            console.log('resssso ppp ',res)
+            console.log('resssso ppp ser ',res.user)
             dispatch(userLogin(res.user))
+
+            // dispatch(setUser(res.user))
+            // window.location = '/'
+            navigate('/')
           }).catch(err => {
             console.log(err);
             setUserDataErr(prev => {

@@ -29,6 +29,14 @@ import DoctorsList from "./pages/client/Doctorlist";
 import Activate from "./pages/client/activate";
 import ViewApproval from "./components/adminComponents/Approvals";
 import PageResponse from "./components/userComponents/RequestResponse";
+import PatientsPage from "./pages/doctor/Patients";
+import Schedule from "./pages/doctor/MySlots";
+import BookDoctor from "./pages/client/Bookdoctor";
+import BookingUserDetails from "./pages/client/ConfirmBook";
+
+import BeforePayment from "./pages/client/PaymentPage";
+import Success from "./pages/client/SuccessPay";
+import Failure from "./pages/client/FailPayment";
 
 
 const routes = createBrowserRouter([
@@ -144,13 +152,43 @@ const routes = createBrowserRouter([
         <BookingSlot />
       </>
     ),
+  }, 
+
+  {
+    path: "/payment-process",
+    element: (
+      <>
+       <UserNavBar />
+        <BeforePayment />
+      </>
+    ),
   },
+
+
   {
     path: "/about",
     element: (
       <>
        <UserNavBar />
         <AboutPage />
+      </>
+    ),
+  },
+  {
+    path: "/success",
+    element: (
+      <>
+        <UserNavBar />
+        <Success />
+      </>
+    ),
+  },
+  {
+    path: "/failure",
+    element: (
+      <>
+        <UserNavBar />
+        <Failure />
       </>
     ),
   },
@@ -169,6 +207,15 @@ const routes = createBrowserRouter([
       <>
   <UserNavBar />
   <UserHome /> 
+      </>
+    ),
+  },
+  {
+    path: "/Availability",
+    element: (
+      <>
+  <UserNavBar />
+  <BookDoctor />
       </>
     ),
   },
@@ -215,6 +262,15 @@ const routes = createBrowserRouter([
       </>
     ),
   },
+  {
+    path: "/book-User",
+    element: (
+      <>
+      <UserNavBar />
+      <BookingUserDetails />
+      </>
+    ),
+  },
   
   //Doctor
 
@@ -230,13 +286,26 @@ const routes = createBrowserRouter([
     path: "/doctor/home",
     element: (
       <>
-      <DoctorNavBar />
       <DoctorHome />
       </>
     ),
   },
- 
- 
+  {
+    path: "/doctor/patients",
+    element: (
+      <>
+      <PatientsPage />
+      </>
+    ),
+  },
+  {
+    path: "/doctor/schedule",
+    element: (
+      <>
+     <Schedule />
+      </>
+    ),
+  },
  
  
  

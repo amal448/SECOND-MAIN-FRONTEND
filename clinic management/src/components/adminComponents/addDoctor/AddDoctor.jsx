@@ -19,6 +19,37 @@ function AddDoctor() {
   const [certificateErr, setCertificateErr] = useState(false)
   const [imageErr, setImageErr] = useState(false)
 
+
+  const [starthour, setStartHour] = useState("09");
+  const [startminute, setStartMinute] = useState("00");
+  const [startmeridiem, setStartMeridiem] = useState("AM");
+
+  const [endhour, setEndHour] = useState("05");
+  const [endminute, setEndMinute] = useState("00");
+  const [endmeridiem, setEndMeridiem] = useState("PM");
+
+
+  const [startTime, setStartTime] = useState("09:00 AM");
+  const [endTime, setEndTime] = useState("05:00 PM");
+  const history = useNavigate();
+
+
+  useEffect(() => {
+    setStartTime(`${starthour}:${startminute}${startmeridiem}`);
+}, [starthour, startminute, startmeridiem]);
+
+useEffect(() => {
+    setEndTime(`${endhour}:${endminute}${endmeridiem}`);
+}, [endhour, endminute, endmeridiem]);
+
+
+
+
+
+
+
+
+
   const [departments,setDepartments] =useState([])
 
   const [applyData, setApplyData] = useState({
@@ -31,7 +62,7 @@ function AddDoctor() {
     address: "",
     department: "",
     experience: "",
-    CTC: "",
+    fees: "",
     password:""
   });
 
@@ -45,7 +76,7 @@ function AddDoctor() {
     address: "",
     department: "",
     experience: "",
-    CTC: "",
+    fees: "",
     password:""
   });
 
@@ -82,7 +113,7 @@ GetRequest('/admin/get-all-department').then(res =>{
     console.log("handlesubmitOn");
     console.log("applyData", applyData);
 
-    if (applyData.firstName == "" || applyData.lastName == "" || applyData.CTC == "" || applyData.about == "" || applyData.address == "" || applyData.department == "" || applyData.dob == "" || applyData.email == "" || applyData.experience == "" || applyData.mobile == "" ||applyData.password=="") {
+    if (applyData.firstName == "" || applyData.lastName == "" || applyData.fees == "" || applyData.about == "" || applyData.address == "" || applyData.department == "" || applyData.dob == "" || applyData.email == "" || applyData.experience == "" || applyData.mobile == "" ||applyData.password=="") {
       for (const key in applyData) {
         if (applyData[key] === "") {
           setApplyDataErr((prev) => {
@@ -187,7 +218,7 @@ GetRequest('/admin/get-all-department').then(res =>{
             let obj = {}
             obj[res[1].name] = res[1].file
             obj[res[0].name] = res[0].file
-            let Applicantdata = { ...applyData, ...obj }
+            let Applicantdata = { ...applyData, ...obj,startTime:startTime,endTime:endTime }
             //  Appicantdata={...applyData}
 
             console.log("Appicantdata", Applicantdata)
@@ -380,16 +411,109 @@ GetRequest('/admin/get-all-department').then(res =>{
                             placeholder="Enter Experience "
                         />
                     </div>
+                    
+
+                    <div className="flex flex-row my-4">
+  <label htmlFor="fees" className="text-gray-700">
+    Start Time
+  </label>
+  
+  <select
+    name="startTime"
+    value={starthour}
+    className="ml-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900"
+    onChange={(e) => setStartHour(e.target.value)}
+  >
+    <option value="01">01</option>
+    <option value="02">02</option>
+    <option value="03">03</option>
+    <option value="04">04</option>
+    <option value="05">05</option>
+    <option value="06">06</option>
+    <option value="07">07</option>
+    <option value="08">08</option>
+    <option value="09">09</option>
+    <option value="10">10</option>
+    <option value="11">11</option>
+    <option value="12">12</option>
+  </select>
+  
+  <select
+    name=""
+    className="ml-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900"
+    value={startminute}
+    onChange={(e) => setStartMinute(e.target.value)}
+  >
+    <option value="00">00</option>
+  </select>
+  
+  <select
+    name=""
+    className="ml-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900"
+    value={startmeridiem}
+    onChange={(e) => setStartMeridiem(e.target.value)}
+  >
+    <option value="AM">AM</option>
+    <option value="PM">PM</option>
+  </select>
+</div>
+
+                    <div className="flex flex-row my-4">
+          <label htmlFor="fees" className="text-gray-700">
+            End Time
+          </label>
+          
+          <select
+            name="endTime"
+            value={endhour}
+            className="ml-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900"
+            onChange={(e) => setEndHour(e.target.value)}
+          >
+            <option value="01">01</option>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="04">04</option>
+            <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+          </select>
+          
+          <select
+            name=""
+            className="ml-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900"
+            value={endminute}
+            onChange={(e) => setEndMinute(e.target.value)}
+          >
+            <option value="00">00</option>
+          </select>
+          
+          <select
+            name=""
+            className="ml-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900"
+            value={endmeridiem}
+            onChange={(e) => setEndMeridiem(e.target.value)}
+          >
+            <option value="AM">AM</option>
+            <option value="PM">PM</option>
+          </select>
+          </div>
+
+
                     <div className="flex flex-col my-4">
                         <label htmlFor="CTC" className="text-gray-700">
-                            CTC
+                            Fees
                 {applyDataErr.CTC && <span className="text-red-500 font-bold">* {applyDataErr.CTC}</span>}
 
                         </label>
                         <input
                             type="text"
-                            name="CTC"
-                            id="CTC"
+                            name="fees"
+                            id="fees"
                             onChange={handleOnchange}
                             className="mt-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900"
                             placeholder="Expecting Salary "
@@ -439,16 +563,16 @@ GetRequest('/admin/get-all-department').then(res =>{
                     
 
 
-                    <div class="max-w-2xl mx-auto">
+                    <div className="max-w-2xl mx-auto">
                     <label htmlFor="CTC" className="text-gray-700"> Image
               {imageErr && <span className="text-red-500 font-bold">* Please Provide the Image</span>}
                      </label>
-                        <div class="flex items-center justify-center w-full">
-                            <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                    <svg class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                        <div className="flex items-center justify-center w-full">
+                            <label htmlfor="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                                    <svg className="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                    <p clclassNameass="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                                 </div>
                                 <input type="file" id="dropzone-file" name="image" onChange={(e) => {
                 console.log(e.target.files[0]);
@@ -472,19 +596,19 @@ GetRequest('/admin/get-all-department').then(res =>{
                 <span className="text-red-500 font-bold">* Please Provide the certificate</span>
               )}
               </label>
-                        <div class="flex items-center justify-center w-full">
-                            <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                    <svg class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                        <div className="flex items-center justify-center w-full">
+                            <label htmlfor="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                                    <svg className="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                    <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                                 </div>
                 
                                 <input id="dropzone-file" name="certificate"   onChange={(e) => setCertificate([e.target.files[0]])}    type="file"  />
                             </label>
                         </div>
 
-                        <p class="mt-5">This file input component is part of a larger, open-source library of Tailwind CSS components. Learn
+                        <p className="mt-5">This file input component is part of a larger, open-source library of Tailwind CSS components. Learn
                             more
                             by going to the official <a class="text-blue-600 hover:underline"
                                 href="#" target="_blank">Flowbite Documentation</a>.
@@ -613,7 +737,7 @@ GetRequest('/admin/get-all-department').then(res =>{
         </label>
       </div> */}
 
-<div class='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
+<div className='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
                     <button  onClick={handleOnSubmit} class='w-auto bg-blue-500 hover:bg-blue-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' >Approve</button>
                 </div>
                 </form>

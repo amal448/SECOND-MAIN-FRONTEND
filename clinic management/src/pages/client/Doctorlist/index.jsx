@@ -1,78 +1,81 @@
-import React from 'react'
-
+import React,{useLayoutEffect,useState} from 'react'
+import { useLocation } from 'react-router-dom'
+import useFetch from '../../../hooks/useFetch';
+import { useNavigate } from 'react-router-dom'; 
 function DoctorsList() {
+
+    const location=useLocation();
+    const navigate=useNavigate()
+
+    console.log(location.state.department);
+    const department=location.state.department.department
+
+    console.log("department",department);
+    
+    const getRequest=useFetch('GET')
+
+    const [doctors,setDoctors] =useState()
+
+
+    function handleOnClick(doctor) {
+      navigate('/Availability',{state:{doctor:doctor}})
+  }
+
+
+
+    useLayoutEffect(()=>{
+        console.log("lkldkledkkklewdkledwemwdod");
+        getRequest(`/user/department-doctors/${department}`).then(res=>{
+            console.log("depdoctors...................",res)
+
+        setDoctors(res)
+
+        })
+    },[])
+
     return (
         <div>
 
-
-            <div class="w-full bg-white">
-                <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
-                    <div class="text-center pb-12">
-                        {/* <h2 class="text-base font-bold text-indigo-600">
-                We have the best equipment in the market
-            </h2> */}
-                        <h1 class="font-bold text-3xl md:text-4xl lg:text-5xl font-heading text-gray">
-                            Our Faculties
-                        </h1>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <div class="w-full bg-gray-100 rounded-lg sahdow-lg p-12 flex flex-col justify-center items-center">
-                            <div class="mb-8">
-                                <img class="object-center object-cover rounded-full h-36 w-36" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80" alt="photo" />
-                            </div>
-                            <div class="text-center">
-                                <p class="text-xl text-gray font-bold mb-2">Dany Bailey</p>
-                                <p class="text-base text-gray-400 font-normal">Software Engineer</p>
-                            </div>
-                        </div>
-                        <div class="w-full bg-gray-100 rounded-lg sahdow-lg p-12 flex flex-col justify-center items-center">
-                            <div class="mb-8">
-                                <img class="object-center object-cover rounded-full h-36 w-36" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80" alt="photo" />
-                            </div>
-                            <div class="text-center">
-                                <p class="text-xl text-gray font-bold mb-2">Lucy Carter</p>
-                                <p class="text-base text-gray-400 font-normal">Graphic Designer</p>
-                            </div>
-                        </div>
-                        <div class="w-full bg-gray-100 rounded-lg sahdow-lg p-12 flex flex-col justify-center items-center">
-                            <div class="mb-8">
-                                <img class="object-center object-cover rounded-full h-36 w-36" src="https://images.unsplash.com/photo-1499952127939-9bbf5af6c51c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1176&q=80" alt="photo" />
-                            </div>
-                            <div class="text-center">
-                                <p class="text-xl text-gray font-bold mb-2">Jade Bradley</p>
-                                <p class="text-base text-gray-400 font-normal">Dev Ops</p>
-                            </div>
-                        </div>
-                        <div class="w-full bg-gray-100 rounded-lg sahdow-lg p-12 flex flex-col justify-center items-center">
-                            <div class="mb-8">
-                                <img class="object-center object-cover rounded-full h-36 w-36" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80" alt="photo" />
-                            </div>
-                            <div class="text-center">
-                                <p class="text-xl text-gray font-bold mb-2">Dany Bailey</p>
-                                <p class="text-base text-gray-400 font-normal">Software Engineer</p>
-                            </div>
-                        </div>
-                        <div class="w-full bg-gray-100 rounded-lg sahdow-lg p-12 flex flex-col justify-center items-center">
-                            <div class="mb-8">
-                                <img class="object-center object-cover rounded-full h-36 w-36" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80" alt="photo" />
-                            </div>
-                            <div class="text-center">
-                                <p class="text-xl text-gray font-bold mb-2">Lucy Carter</p>
-                                <p class="text-base text-gray-400 font-normal">Graphic Designer</p>
-                            </div>
-                        </div>
-                        <div class="w-full bg-gray-100 rounded-lg sahdow-lg p-12 flex flex-col justify-center items-center">
-                            <div class="mb-8">
-                                <img class="object-center object-cover rounded-full h-36 w-36" src="https://images.unsplash.com/photo-1499952127939-9bbf5af6c51c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1176&q=80" alt="photo" />
-                            </div>
-                            <div class="text-center">
-                                <p class="text-xl text-gray font-bold mb-2">Jade Bradley</p>
-                                <p class="text-base text-gray-400 font-normal">Dev Ops</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+<div className="w-full bg-white">
+  <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-4 py-8">
+    <div className="text-center pb-8">
+      <h1 className="font-bold text-2xl md:text-3xl lg:text-4xl font-heading text-gray">
+        Our Faculties
+      </h1>
+    </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center">
+      {doctors &&
+        doctors.map((doctor) => (
+          <div className="w-full bg-gray-100 rounded-lg shadow-lg p-8 flex flex-col justify-center items-center">
+            <div className="mb-4">
+              <img
+                className="object-center object-cover rounded-full h-24 w-24"
+                src={doctor.image}
+                alt="photo"
+              />
             </div>
+            <div className="text-center">
+              <p className="text-lg text-gray font-bold mb-1">
+                {doctor.firstName} {doctor.lastName}
+              </p>
+              <p className="text-sm text-gray-400 font-normal">
+                {doctor.department}
+              </p>
+           
+              <button className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"  onClick={()=>handleOnClick(doctor)}>
+                See Slot
+              </button>
+         
+
+            </div>
+          </div>
+        ))}
+    </div>
+  </section>
+</div>
+
+
+            
         </div>
     )
 }

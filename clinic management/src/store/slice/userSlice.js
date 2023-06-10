@@ -28,8 +28,10 @@ const userSlice=createSlice({
             state.gender=payload.gender
             state.mobile=payload.mobile
             state.DOB=payload.dateOfBirth
-            state.login=true
-            console.log(payload)
+            state.login=true,
+
+            state.id=payload._id
+            console.log("payload1111111111111",payload)
         },
         setUser: (state,payload)=>{
 
@@ -45,7 +47,8 @@ const userSlice=createSlice({
                 localStorage.removeItem('user-token')
                 window.location='/login'
             }
-        }
+        },
+        
     }
 
 })
@@ -54,4 +57,6 @@ const userReducer=userSlice.reducer
 
 export const {setUser,startLoading,userLogin,userLogout,setDoctors}=userSlice.actions
 
-export default userReducer
+// export const selectUser=(state)=>state.user
+
+export default userReducer 

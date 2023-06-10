@@ -2,13 +2,20 @@ import React,{useLayoutEffect,useState} from 'react';
 import siteLogo from './../../../assets/svg/site-logo.svg';
 import useFetch from '../../../hooks/useFetch';
 import { useDispatch,useSelector } from 'react-redux';
-
+import { useNavigate } from 'react-router-dom';
 
 function BookingSlot() {
 const getRequest =useFetch('GET')
-
+const navigate=useNavigate()
 
     const[department,setDepartments]=useState([])
+
+
+function handleOnClick(dep) {
+    navigate('/dep-doctors',{state:{department:dep}})
+}
+
+
 
 
 useLayoutEffect(()=>{
@@ -40,7 +47,7 @@ useLayoutEffect(()=>{
                                 <span className="font-bold text-base">Doctor's Count-</span>
                                 <span className="font-light text-sm">1</span>
                             </div>
-                            <button className="bg-[#F4F5FA] px-4 py-3 rounded-full border border-[#F0F0F6] shadow-xl mt-4">
+                            <button className="bg-[#F4F5FA] px-4 py-3 rounded-full border border-[#F0F0F6] shadow-xl mt-4" onClick={()=>handleOnClick(dep)}>
                                 Book
                             </button>
                         </div>
