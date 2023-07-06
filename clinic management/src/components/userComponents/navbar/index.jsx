@@ -118,6 +118,26 @@ function UserNavBar() {
                     }}  >
                     Contact
                   </a>
+                  <a
+                    // href="/contact"
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    onClick={(e)=>{
+                      e.preventDefault()
+                      navigate('/chat')
+                      return false
+                    }}  >
+                    Chat
+                  </a>
+                  <a
+                    // href="/contact"
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    onClick={(e)=>{
+                      e.preventDefault()
+                      navigate('/paymenthistory')
+                      return false
+                    }}  >
+                    Payment
+                  </a>
                 </div>
               </div>
             </div>

@@ -78,9 +78,14 @@ useEffect(() => {
 
   useEffect(()=>{
 
-    GetRequest('/user/get-departments').then(res =>{
+    GetRequest('/user/get-departments').then(res =>{ 
+      console.log("response in Applydoctor",res)
+      console.log(" res sub in Applydoctor",res?.res)
+
         setDepartments(() => {
-          return [...res.response]
+          // return [...res.response]
+          return [res?.res]
+
         });
     }).catch(error => {
           console.log(error);
@@ -512,24 +517,6 @@ useEffect(() => {
 </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                  
                      <div className="flex flex-col my-4">
                         <label htmlFor="Department" className="text-gray-700">
@@ -552,9 +539,9 @@ useEffect(() => {
                             <option>Japan</option>
                             <option>India</option>
                             <option>Nepal</option> */}
-                           {departments && departments?.map((item, i) =>{
+                           {departments && departments?.map((item) =>{
                             return <>
-                             <option key={i} value={item.department}>{item.department}</option>
+                             <option key={item._id} value={item.department}>{item.department}</option>
                             </>
                              }
                              )}

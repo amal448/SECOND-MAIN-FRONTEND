@@ -1,23 +1,32 @@
 import React, { useEffect, useState } from 'react'
-import SingleDoctorAvailability from '../../../components/userComponents/ShowAvailability'
+// import SingleDoctorAvailability from '../../../components/userComponents/ShowAvailability'
 import PaymentProcess from '../../../components/userComponents/paycard'
-import { useLocation } from 'react-router-dom';
-
-
+// import { useLocation } from 'react-router-dom';
+import PaymentProcedure from '../../../components/userComponents/paymentDoctor';
+import { useSelector } from 'react-redux';
 function BeforePayment() { 
 
-  const location=useLocation()
+  // const location=useLocation()
   
-  const doctors=location.state?.doctors
-  // console.log("dododododod i(*(8*****8",doctors)
+  // const doctors=location.state?.doctors
+
+  const doctors=useSelector((state) => state.root.paymentDetails.paymentDetails);
+
+
+
+  console.log("PaymentPage dododododod i(*(8*****8 @pagebeforePayment",doctors)
   
 
 
 
   return (
     <div>
-        <SingleDoctorAvailability doctors={doctors} />
-        <PaymentProcess doctors={doctors} />
+       {doctors && (
+        <>
+          <PaymentProcedure doctors={doctors} />
+          <PaymentProcess doctors={doctors} />
+        </>
+      )}
     </div>
   )
 }

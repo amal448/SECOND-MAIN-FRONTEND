@@ -33,12 +33,21 @@ import PatientsPage from "./pages/doctor/Patients";
 import Schedule from "./pages/doctor/MySlots";
 import BookDoctor from "./pages/client/Bookdoctor";
 import BookingUserDetails from "./pages/client/ConfirmBook";
+import ResetPasswordPage from "./pages/client/Reset-password";
+import EmailVerification from "./pages/client/emailverificationPage";
 
 import BeforePayment from "./pages/client/PaymentPage";
 import Success from "./pages/client/SuccessPay";
 import Failure from "./pages/client/FailPayment";
-
-
+import AppointmentPage from "./pages/doctor/appointmentslistPage";
+import MessengerPage from "./pages/client/Messenger/messenger";
+import ContactPage from "./pages/client/Contact";
+import DoctorStatus from "./pages/admin/doctorStatus";
+import EmailToken from "./pages/client/activateemailtoken";
+import DoctorChat from "./pages/doctor/doctorChatPage";
+import ProfilePage from "./pages/doctor/ProfilePage";
+import PaymentPage from "./pages/doctor/payment";
+import PaymentHistoryPage from "./pages/client/Paymenthistory";
 const routes = createBrowserRouter([
 
 
@@ -124,7 +133,14 @@ const routes = createBrowserRouter([
       </>
     ),
   },
-
+  {
+    path: "/admin/doctor-status",
+    element: (
+      <>
+      <DoctorStatus />
+      </>
+    ),
+  },
 
 
   //User
@@ -193,6 +209,29 @@ const routes = createBrowserRouter([
     ),
   },
   {
+    path: "/Email-Verification",
+    element: (
+      <>
+        <UserNavBar />
+       <EmailVerification />
+      </>
+    ),
+  },
+  {
+    // path: "/reset-password",
+     path:"/reset-password/:user_id/:newtoken",
+    element: (
+      <>
+        <UserNavBar />
+      <ResetPasswordPage />
+      </>
+    ),
+  },
+
+
+
+
+  {
     path: "/doctor/login",
     element: (
       <>
@@ -219,6 +258,16 @@ const routes = createBrowserRouter([
       </>
     ),
   },
+  
+  {
+    path: "/paymenthistory",
+    element: (
+      <>
+  <UserNavBar />
+  <PaymentHistoryPage />
+      </>
+    ),
+  },
   {
     path: "/response",
     element: (
@@ -241,7 +290,7 @@ const routes = createBrowserRouter([
     element: (
       <>
     <UserNavBar />
-    {/* <AboutPage /> */}
+    <ContactPage />
 
       </>
     ),
@@ -268,6 +317,23 @@ const routes = createBrowserRouter([
       <>
       <UserNavBar />
       <BookingUserDetails />
+      </>
+    ),
+  },
+  {
+    path: "/chat",
+    element: (
+      <>
+      <UserNavBar />
+      <MessengerPage />
+      </>
+    ),
+  },
+  {
+    path: "/foractivate-account/:user_id/:newtoken",
+    element: (
+      <>
+      <EmailToken />
       </>
     ),
   },
@@ -306,10 +372,43 @@ const routes = createBrowserRouter([
       </>
     ),
   },
- 
- 
- 
- 
+  {
+    path: "/doctor/appointments",
+    element: (
+      <>
+      <AppointmentPage />
+      </>
+    ),
+  },
+  {
+    path: "/doctor/chat",
+    element: (
+      <>
+      <DoctorNavBar />
+      <DoctorChat />
+      </>
+    ),
+  },
+  
+  {
+    path: "/doctor/profile",
+    element: (
+      <>
+      {/* <DoctorNavBar /> */}
+      <ProfilePage />
+      </>
+    ),
+  },
+  
+  {
+    path: "/doctor/payment",
+    element: (
+      <>
+      {/* <DoctorNavBar /> */}
+      <PaymentPage />
+      </>
+    ),
+  },
 ]);
 
 function App() {

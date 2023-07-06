@@ -1,14 +1,17 @@
 import React,{useState} from 'react';
-
+import { useDispatch } from 'react-redux';
+import {doctorLogout} from '../../../store/slice/doctersSlice'
 function DoctorNavBar() {
 
-
+  const dispatch=useDispatch()
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   
     const toggleDropdown = () => {
       setIsDropdownOpen(!isDropdownOpen);
     };
-
+    const handleLogout=()=>{
+      dispatch(doctorLogout(true))
+    }
 
 
   return (
@@ -72,14 +75,14 @@ function DoctorNavBar() {
                 <div className="flex space-x-4">
                   {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
                   <a
-                    href="#"
+                    href="/doctor/home"
                     className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
                     aria-current="page"
                   >
                     Home
                   </a>
                   <a
-                    href="#"
+                    href="/doctor/patients"
                     className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                   >
                     Patients
@@ -91,13 +94,19 @@ function DoctorNavBar() {
                     Shedule
                   </a>
                   <a
-                    href="#"
+                    href="/doctor/appointments"
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                  >
+                    Appointment
+                  </a>
+                  <a
+                    href="/doctor/payment"
                     className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                   >
                     Payment
                   </a>
                   <a
-                    href="/contact"
+                    href="/doctor/profile"
                     className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                   >
                     Profile
@@ -135,7 +144,8 @@ function DoctorNavBar() {
                     className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                     id="user-menu-button"
                     aria-expanded="false"
-                    aria-haspopup="true"
+                    aria-haspopup="true" 
+                    onClick={toggleDropdown}
                   >
                     <span className="sr-only">Open user menu</span>
                     <img
@@ -184,6 +194,7 @@ function DoctorNavBar() {
                     role="menuitem"
                     tabIndex="-1"
                     id="user-menu-item-2"
+                    onClick={handleLogout}
                   >
                     Sign out
                   </a>

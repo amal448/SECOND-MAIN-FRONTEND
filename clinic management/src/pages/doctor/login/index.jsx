@@ -72,8 +72,10 @@ function handleSubmit(e) {
       try{
         console.log(doctorData);
         postRequest('/doctor/login',doctorData ).then(res =>{
-            console.log("outside postres",res);
-            dispatch(setInfo(res.info))
+            console.log("outside postresssssssssssss",res.doctor);
+            // dispatch(setInfo(res.info))
+            dispatch(setInfo(res?.doctor))
+
             localStorage.setItem('doctor-token',JSON.stringify(res.token))
             navigate('/doctor/home')
         }).catch(err => {

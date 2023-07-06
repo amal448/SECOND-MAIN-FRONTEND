@@ -19,13 +19,13 @@ const Users = ({ users, setUsers }) => {
     event.stopPropagation();
     getRequest(`/admin/block-user/${id}`).then((response) => {
       if (response.ok) {
-        const updatedData = data.map((item) => {
-          if (item._id === id) {
-            return { ...item, block: !item.block };
-          }
-          return item;
-        });
-        setData(updatedData);
+        // const updatedData = data.map((item) => {
+        //   if (item._id === id) {
+        //     return { ...item, block: !item.block };
+        //   }
+        //   return item;
+        // });
+        // setData(updatedData);
         // setBlockStatus((prevStatus) => !prevStatus);
         swal("Success", "User blocked/unblocked successfully!", "success");
       } else {
@@ -49,6 +49,7 @@ const Users = ({ users, setUsers }) => {
              checked={params.row.block}
              onChange={(event)=>{
               event.stopPropagation()
+              params.row.block = !params.row.block
               blockUser(event, params.row._id)
             }} 
              defaultChecked />

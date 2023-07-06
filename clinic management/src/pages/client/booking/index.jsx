@@ -21,9 +21,12 @@ function handleOnClick(dep) {
 useLayoutEffect(()=>{
     getRequest('/user/get-departments').then(res=> {
         console.log("res12345",res);
-        setDepartments(res.response);
+        console.log("res1444444345",res?.res);
+
+        setDepartments(res?.res);
     })
 },[])
+console.log("department",department);
     return (
         <div className="flex items-center justify-center flex-col bg-white">
             <div className="bg-[#F4F5FA] p-10 rounded-xl">
@@ -38,10 +41,10 @@ useLayoutEffect(()=>{
 
 {}
                 <div className="flex justify-start flex-wrap">
-                    {department.map(dep => (<div className="bg-[#FFFBEC] rounded-xl m-3">
+                    {department && department.map(dep => (<div className="bg-[#FFFBEC] rounded-xl m-3">
                         <div className="flex flex-col p-8 rounded-xl bg-white shadow-xl translate-x-4 translate-y-4 w-96 md:w-auto">
                             <img src={siteLogo} className="w-8" />
-                            <div className="mt-3 font-semibold text-lg">{dep.department}</div>
+                            <div className="mt-3 font-semibold text-lg">{dep?.department}</div>
                             <div className="text-sm font-light">Available Slot</div>
                             <div className="my-4">
                                 <span className="font-bold text-base">Doctor's Count-</span>
@@ -66,3 +69,4 @@ useLayoutEffect(()=>{
 }
 
 export default BookingSlot;
+

@@ -5,16 +5,17 @@ export default function useFetch(Method) {
   function setToken(params) {
     if (window.location.pathname.startsWith("/doctor")) {
       console.log("at usefetch doctor");
-
-      return JSON.parse(localStorage.getItem("doctor-token")) || "";
+      return localStorage.getItem("doctor-token") || null;
     } else if (window.location.pathname.startsWith("/admin")) {
-      return JSON.parse(localStorage.getItem("admin-token")) || "";
+      return localStorage.getItem("admin-token") || null;
     } else {
-      return JSON.parse(localStorage.getItem("user-token")) || "";
+      return localStorage.getItem("user-token") || null;
     }
   }
-
-  const token = setToken();
+  let token = ""
+  if(setToken()) {
+    token = JSON.parse(setToken());
+  }
 
   let BASEURL = "http://localhost:5000/api";
   let METHOD = Method;
@@ -40,10 +41,11 @@ export default function useFetch(Method) {
           },
         })
           .then((res) => {
-            console.log("res", res);
             resolve(res?.data);
+            // resolve(res);
           })
           .catch((err) => {
+            // return
             if(window.location.pathname.includes("/activate-account")) {
               return
             }
@@ -62,13 +64,9 @@ export default function useFetch(Method) {
                 return;
               }
             }
-            console.log("catch errrrr", err);
-            console.log("catch err", err?.response?.data);
             reject(err?.response?.data);
           });
       } catch (error) {
-        console.log(error?.message);
-        console.log(error);
         reject(error?.message);
       }
     });

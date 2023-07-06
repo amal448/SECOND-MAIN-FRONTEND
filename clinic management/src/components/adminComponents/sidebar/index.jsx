@@ -60,7 +60,13 @@ const Sidebar = () => {
             <LocalShippingIcon className="icon" />
             <span>Department</span>
           </li>  
-              </Link>                                                             
+              </Link>
+              <Link to="/admin/doctor-status" style={{ textDecoration: "none" }}>
+               <li style={{marginTop:"20px"}}>
+              <PersonOutlineIcon className="icon" />
+              <span>Approval/Rejected List</span>
+            </li>
+          </Link>                                                             
           {/* <p className="title">USEFUL</p>
              <li style={{marginTop:"20px"}}>
             <InsertChartIcon className="icon" />

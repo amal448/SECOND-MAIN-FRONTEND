@@ -20,7 +20,7 @@ function Departments ()
       console.log("response",response);
       setDepartments(response)
     })
-  })
+  },[])
   
 
   return (

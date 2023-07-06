@@ -12,9 +12,9 @@ useLayoutEffect(()=>{
     getRequest('/user/experience-doctors').then(res=>{
         console.log(res);
       console.log("lkdcldscsdckok");
-      console.log(res.response);
+      console.log(res?.res);
 
-      const departments=res.response
+      const departments=res?.res
       setDoctors(departments)
   
     })

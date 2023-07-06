@@ -42,11 +42,10 @@ const userSlice=createSlice({
             state.doctors.push(...payload)
         },
         userLogout:(state, {payload})=>{
-            if(payload)
-            {
-                localStorage.removeItem('user-token')
+
+                localStorage?.removeItem('user-token')
                 window.location='/login'
-            }
+
         },
         
     }

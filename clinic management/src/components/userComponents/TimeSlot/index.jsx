@@ -11,6 +11,7 @@ import { paymentData } from '../../../store/slice/PaymentSlice';
 function TimeSlot({doctors,id}) {
 
   console.log("doctor id",id);
+  console.log("=============+++++++++++++-------------++++++++++++++++++============");
   console.log("doctor in timeSlot",doctors)
 
   const user=useSelector(state=>state)
@@ -114,10 +115,10 @@ function TimeSlot({doctors,id}) {
     <div className="flex justify-center mx-auto p-6 w-2/6">
 
     <DatePicker getSelectedDay={selectedDay}
-    endDate={50}
-    selectDate={new Date("2020-04-30")}
     labelFormat={"MMMM"}
     color={"#374e8c"}          
+    endDate={50}
+    // selectDate={new Date("2020-04-30")}
 />
 
     </div>

@@ -39,12 +39,12 @@ function DoctorApplication({ applicant, setApplicant }) {
             <Link to={`/admin/view-apply/${params.row._id}`} style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
-            <div
+            {/* <div
               className="deleteButton"
             //   onClick={() => handleDelete(params.row.id)}
             >
               Delete
-            </div>
+            </div> */}
           </div>
         );
       },

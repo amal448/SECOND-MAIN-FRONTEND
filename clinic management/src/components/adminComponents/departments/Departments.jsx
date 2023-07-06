@@ -6,48 +6,53 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import useFetch from "../../../hooks/useFetch";
-
+// import { useNavigate } from "react-router-dom";
 const Departments = ({ departments, setDepartments }) => {
   const [data, setData] = useState(false);
 
-  const delRequest = useFetch('DELETE')
+  const navigate=useNavigate()
+  // const handleEdit = async (id) => {
+  //   try {
+  //     Swal.fire({
+  //       title: 'Are you sure?',
+  //       text: "You won't be able to revert this!",
+  //       icon: 'warning',
+  //       showCancelButton: true,
+  //       confirmButtonColor: '#3085d6',
+  //       cancelButtonColor: '#d33',
+  //       confirmButtonText: 'Yes, delete it!'
+  //     }).then(async (result) => {
+  //       if (result.isConfirmed) {
 
-  const handleDelete = async (id) => {
-    try {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-
-          const deletdoc = delRequest(`/admin/delete-dep/${id}`).then((response) => {
-            console.log("Atdeparment axios");
-            console.log("response", response);
-          })
+  //         const deletdoc = editRequest(`/admin/edit-dep/${id}`).then((response) => {
+  //           console.log("Atdeparment axios");
+  //           console.log("response", response);
+  //         })
 
 
-          setDoctors(deletdoc?.data?.doctors)
+  //         setDoctors(deletdoc?.data?.doctors)
 
-          setData()
+  //         setData()
 
-          Swal.fire(
-            'Deleted!',
-            'Your file has been deleted.',
-            'success'
-          )
-        }
-      })
+  //         Swal.fire(
+  //           'Deleted!',
+  //           'Your file has been deleted.',
+  //           'success'
+  //         )
+  //       }
+  //     })
 
-    } catch (error) {
-      return error
+  //   } catch (error) {
+  //     return error
 
-    }
-  }
+  //   }
+  // }
+
+const handleEdit=async (id) =>{
+
+navigate.push(`/admin/edit-dep/${id}`)
+}
+
 
   const actionColumn = [
     {
@@ -59,9 +64,10 @@ const Departments = ({ departments, setDepartments }) => {
           <div className="cellAction">
             <div
               className="deleteButton"
-              onClick={() => handleDelete(params?.row?._id)}
+              onClick={() => handleEdit(params?.row?._id)}
+
             >
-              Delete
+              Edit
             </div>
           </div>
         );
