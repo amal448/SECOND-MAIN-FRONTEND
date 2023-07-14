@@ -30,7 +30,7 @@ function ConversationComponent({conversation,currentUser}) {
       <div className="flex flex-row py-4 px-2 justify-center items-center border-b-2">
         <div className="w-1/4">
           <img
-            // src={doctor?.doctor[0]?.image}
+            src={user?.alluser[0]?.image}
             className="object-cover h-12 w-12 rounded-full"
             alt=""
           />

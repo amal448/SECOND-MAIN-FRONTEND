@@ -61,6 +61,7 @@ useEffect(() => {
     department: "",
     experience: "",
     fees: "",
+    password:""
   });
 
   const [applyDataErr, setApplyDataErr] = useState({
@@ -74,19 +75,16 @@ useEffect(() => {
     department: "",
     experience: "",
     fees: "",
+    password:""
+
   });
 
   useEffect(()=>{
 
     GetRequest('/user/get-departments').then(res =>{ 
-      console.log("response in Applydoctor",res)
-      console.log(" res sub in Applydoctor",res?.res)
 
-        setDepartments(() => {
-          // return [...res.response]
-          return [res?.res]
 
-        });
+        setDepartments(res?.res)
     }).catch(error => {
           console.log(error);
         })
@@ -94,8 +92,7 @@ useEffect(() => {
 
 
   function handleOnchange(e) {
-    // console.log(e.target);
-    // console.log(e.target.name === "image");
+
 
     setApplyData((prev) => {
       return {
@@ -108,8 +105,6 @@ useEffect(() => {
 
   function handleOnSubmit(e) {
     e.preventDefault();
-    console.log("handlesubmitOn");
-    console.log("applyData", applyData);
 
     if (applyData.firstName == "" || applyData.lastName == "" || applyData.fees == "" || applyData.about == "" || applyData.address == "" || applyData.department == "" || applyData.dob == "" || applyData.email == "" || applyData.experience == "" || applyData.mobile == "") {
       for (const key in applyData) {
@@ -219,10 +214,8 @@ useEffect(() => {
             let Applicantdata = { ...applyData, ...obj,startTime:startTime,endTime:endTime}
             //  Appicantdata={...applyData}
 
-            console.log("Appicantdata", Applicantdata)
            PostRequest("/user/apply-doctor",Applicantdata).then((res)=>{
 
-            console.log("before moving on to next")
             navigate("/response")
            }).catch((err)=>{
             setApplyDataErr((prev)=>{
@@ -236,11 +229,9 @@ useEffect(() => {
          
           });
         }
-        console.log(1111111111);
 
         uploadFile()
 
-        console.log("Applicantdata outside",Applicantdata);
 
 
 
@@ -534,11 +525,7 @@ useEffect(() => {
                             className="mt-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900"
                             // placeholder="Expecting Salary "
                         >
-                           {/* <option hidden>Department</option>
-                            <option>America</option>
-                            <option>Japan</option>
-                            <option>India</option>
-                            <option>Nepal</option> */}
+                          
                            {departments && departments?.map((item) =>{
                             return <>
                              <option key={item._id} value={item.department}>{item.department}</option>
@@ -546,6 +533,21 @@ useEffect(() => {
                              }
                              )}
                         </select>
+                    </div>
+                    <div className="flex flex-col my-4">
+                        <label htmlFor="date" className="text-gray-700">
+                           Password
+              {applyDataErr.password && <span className="text-red-500 font-bold">* {applyDataErr.password}</span>}
+
+                        </label>
+                        <input
+                            type="password"
+                            name="password"
+                            onChange={handleOnchange}
+                            id="password"
+                            className="mt-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900"
+                            placeholder="Enter Qualification Details "
+                        />
                     </div>
 
                     <div className="max-w-2xl mx-auto">

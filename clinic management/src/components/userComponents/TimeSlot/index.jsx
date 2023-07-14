@@ -28,7 +28,9 @@ function TimeSlot({doctors,id}) {
     const [excludeDate,setExcludeDate]=useState([]) //deal with booked time
 
     let doctorId=doctors?._id
-    let userId=user.root.user.id
+    // let userId=user.root.user.id
+    let userId=user?.user?.id
+
 
   console.log("userId is here ",userId);
 
@@ -44,8 +46,8 @@ function TimeSlot({doctors,id}) {
     ];
     const userInfo =[
       {
-        userName:user?.root.user.userName,
-        email:user?.root.user.email
+        userName:user?.user.userName,
+        email:user?.user.email
       }
     ]
 

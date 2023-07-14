@@ -113,10 +113,11 @@ function handleSubmit(e) {
           <div className="form-control">
             <label
               htmlFor="email"
-              style={{ color: `${doctorData.email ? "red" : ""}` }}
+              // style={{ color: `${doctorData.email ? "" : "red"}` }}
             >
-              {doctorData.email && <span>*{doctorData.email}</span>}
-              {!doctorDataErr.email && 'email'}
+              email
+              {/* {doctorData.email && <span>*{doctorData.email}</span>}
+              {!doctorDataErr.email  && !doctorData.email  && 'email'} */}
             </label>
             <input
               type="email"

@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import Chart from "react-apexcharts";
-// import { yearlyReport } from '../../Helpers/doctorHelper';
-
+import useFetch from '../../../hooks/useFetch';
 const YearlyReport = () => {
+    let getRequest=useFetch('GET')
     const year = new Date().getFullYear();
-    const [report,setReport] = useState([])
-    // useEffect(()=>{
-    //     yearlyReport().then((data)=>{
-    //         setReport(data?.data)
+    const [report,setReport] = useState([])   
+    useEffect(()=>{
+        getRequest('/doctor/yearly-report').then((data)=>{
+            setReport(data)
 
-    //     })
-    // },[])
+        })
+    },[])
     const options = {
         chart: {
             id: "basic-bar"

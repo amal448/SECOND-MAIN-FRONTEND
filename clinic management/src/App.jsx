@@ -7,47 +7,56 @@ import "./App.css";
 import AdminLogin from "./pages/admin/login";
 import AdminNavBar from "./components/adminComponents/navbar";
 import AdminHome from "./pages/admin/home";
-import Signup from "./pages/client/signup";
-import UserLogin from "./pages/client/login";
-import DoctorLogin from "./pages/doctor/login";
-import AddDoctor from "./pages/admin/addDoctor";
 import AdminDoctorsList from "./pages/admin/doctors";
-import AllUsers from "./pages/admin/users";
-import UserHome from "./pages/client/home";
-import UserNavBar from "./components/userComponents/navbar";
-import DoctorHome from "./pages/doctor/home";
-import DoctorNavBar from "./components/doctorComponents/navbar";
-import AboutPage from "./pages/client/About";
+import AddDoctor from "./pages/admin/addDoctor";
 import EditDoctor from "./pages/admin/editDoctor";
-import DoctorSignup from "./pages/doctor/signup";
-import ApplyDoctor from "./pages/client/Addoctor";
 import Departments from "./pages/admin/department";
 import DoctorApproval from "./pages/admin/Approvals";
 import AddDepartment from "./components/adminComponents/addDepartment/AddDepartment";
+import ViewApproval from "./components/adminComponents/Approvals";
+import DoctorStatus from "./pages/admin/doctorStatus";
+import AllUsers from "./pages/admin/users";
+
+
+
+
+
+import Signup from "./pages/client/signup";
+import UserLogin from "./pages/client/login";
+import UserNavBar from "./components/userComponents/navbar";
+import UserHome from "./pages/client/home";
+import AboutPage from "./pages/client/About";
+import ApplyDoctor from "./pages/client/Addoctor";
 import BookingSlot from "./pages/client/booking";
 import DoctorsList from "./pages/client/Doctorlist";
 import Activate from "./pages/client/activate";
-import ViewApproval from "./components/adminComponents/Approvals";
 import PageResponse from "./components/userComponents/RequestResponse";
-import PatientsPage from "./pages/doctor/Patients";
-import Schedule from "./pages/doctor/MySlots";
 import BookDoctor from "./pages/client/Bookdoctor";
 import BookingUserDetails from "./pages/client/ConfirmBook";
 import ResetPasswordPage from "./pages/client/Reset-password";
 import EmailVerification from "./pages/client/emailverificationPage";
-
 import BeforePayment from "./pages/client/PaymentPage";
 import Success from "./pages/client/SuccessPay";
 import Failure from "./pages/client/FailPayment";
-import AppointmentPage from "./pages/doctor/appointmentslistPage";
 import MessengerPage from "./pages/client/Messenger/messenger";
 import ContactPage from "./pages/client/Contact";
-import DoctorStatus from "./pages/admin/doctorStatus";
 import EmailToken from "./pages/client/activateemailtoken";
+import PaymentHistoryPage from "./pages/client/Paymenthistory";
+
+
+
+import DoctorLogin from "./pages/doctor/login";
+import DoctorHome from "./pages/doctor/home";
+import DoctorNavBar from "./components/doctorComponents/navbar";
+import DoctorSignup from "./pages/doctor/signup";
+import PatientsPage from "./pages/doctor/Patients";
+import Schedule from "./pages/doctor/MySlots";
+import AppointmentPage from "./pages/doctor/appointmentslistPage";
 import DoctorChat from "./pages/doctor/doctorChatPage";
 import ProfilePage from "./pages/doctor/ProfilePage";
 import PaymentPage from "./pages/doctor/payment";
-import PaymentHistoryPage from "./pages/client/Paymenthistory";
+import VideoCall from "./components/doctorComponents/Video/VideoCall";
+import TimingsPage from "./pages/doctor/Mytimings";
 const routes = createBrowserRouter([
 
 
@@ -307,6 +316,7 @@ const routes = createBrowserRouter([
     path: "/dep-doctors",
     element: (
       <>
+       <UserNavBar />
       <DoctorsList />
       </>
     ),
@@ -406,6 +416,25 @@ const routes = createBrowserRouter([
       <>
       {/* <DoctorNavBar /> */}
       <PaymentPage />
+      </>
+    ),
+  },
+  {
+    path: "/roomchat",
+    element: (
+      <>
+      {/* <DoctorNavBar /> */}
+      <VideoCall/>
+      </>
+    ),
+  },
+  
+  {
+    path: "/doctor/myTimings",
+    element: (
+      <>
+      <DoctorNavBar />
+      <TimingsPage/>
       </>
     ),
   },

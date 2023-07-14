@@ -43,13 +43,6 @@ useEffect(() => {
 }, [endhour, endminute, endmeridiem]);
 
 
-
-
-
-
-
-
-
   const [departments,setDepartments] =useState([])
 
   const [applyData, setApplyData] = useState({
@@ -113,24 +106,38 @@ GetRequest('/admin/get-all-department').then(res =>{
     console.log("handlesubmitOn");
     console.log("applyData", applyData);
 
-    if (applyData.firstName == "" || applyData.lastName == "" || applyData.fees == "" || applyData.about == "" || applyData.address == "" || applyData.department == "" || applyData.dob == "" || applyData.email == "" || applyData.experience == "" || applyData.mobile == "" ||applyData.password=="") {
-      for (const key in applyData) {
-        if (applyData[key] === "") {
-          setApplyDataErr((prev) => {
-            return {
-              ...prev,
-              [key]: "please provide",
-            };
-          });
-        } else {
-          setApplyDataErr((prev) => {
-            return {
-              ...prev,
-              [key]: "",
-            };
-          });
-        }
-      }
+    if (
+      applyData.firstName === "" ||
+      applyData.lastName === "" ||
+      applyData.fees === "" ||
+      applyData.about === "" ||
+      applyData.address === "" ||
+      applyData.department === "" ||
+      applyData.dob === "" ||
+      applyData.email === "" ||
+      applyData.experience === "" ||
+      applyData.mobile === "" ||
+      applyData.password === "" ||
+      startTime === "" ||
+      endTime === ""
+    ) {
+      // Set error messages for empty fields
+      setApplyDataErr((prev) => ({
+        ...prev,
+        firstName: applyData.firstName === "" ? "Please provide a first name" : "",
+        lastName: applyData.lastName === "" ? "Please provide a last name" : "",
+        fees: applyData.fees === "" ? "Please provide the fees" : "",
+        about: applyData.about === "" ? "Please provide details about the doctor" : "",
+        address: applyData.address === "" ? "Please provide an address" : "",
+        department: applyData.department === "" ? "Please select a department" : "",
+        dob: applyData.dob === "" ? "Please provide the date of birth" : "",
+        email: applyData.email === "" ? "Please provide an email" : "",
+        experience: applyData.experience === "" ? "Please provide the experience" : "",
+        mobile: applyData.mobile === "" ? "Please provide a mobile number" : "",
+        password: applyData.password === "" ? "Please provide a password" : "",
+        startTime: startTime === "" ? "Please provide the start time" : "",
+        endTime: endTime === "" ? "Please provide the end time" : "",
+      }));
       return;
     }
     else {
@@ -158,7 +165,7 @@ GetRequest('/admin/get-all-department').then(res =>{
       //   return;
       // }
 
-      if (certificate?.length == null || image?.length == 0) {
+      if (certificate?.length === 0 || image?.length === 0) {
         console.log("certificate and image")
         if (certificate?.length == 0) {
           setCertificateErr(true)
@@ -223,9 +230,13 @@ GetRequest('/admin/get-all-department').then(res =>{
 
             console.log("Appicantdata", Applicantdata)
            PostRequest("/admin/add-doctor",Applicantdata).then((res)=>{
+            console.log(res)
+            if(res)
+            {
 
-            console.log("before moving on to next")
-            navigate("/admin/doctor")
+              console.log("before moving on to next")
+              navigate("/admin/doctor")
+            }
            }).catch((err)=>{
             setApplyDataErr((prev)=>{
               return {
@@ -242,7 +253,7 @@ GetRequest('/admin/get-all-department').then(res =>{
 
         uploadFile()
 
-        console.log("Applicantdata outside",Applicantdata);
+        // console.log("Applicantdata outside",Applicantdata);
 
 
 
@@ -416,6 +427,13 @@ GetRequest('/admin/get-all-department').then(res =>{
                     <div className="flex flex-row my-4">
   <label htmlFor="fees" className="text-gray-700">
     Start Time
+    {applyDataErr.startTime && (
+                  <span className="text-red-500 font-bold">* {applyDataErr.startTime}</span>
+                )}
+      
+
+
+
   </label>
   
   <select
@@ -507,7 +525,7 @@ GetRequest('/admin/get-all-department').then(res =>{
                     <div className="flex flex-col my-4">
                         <label htmlFor="CTC" className="text-gray-700">
                             Fees
-                {applyDataErr.CTC && <span className="text-red-500 font-bold">* {applyDataErr.CTC}</span>}
+                {applyDataErr.fees && <span className="text-red-500 font-bold">* {applyDataErr.fees}</span>}
 
                         </label>
                         <input
@@ -523,9 +541,8 @@ GetRequest('/admin/get-all-department').then(res =>{
                      <div className="flex flex-col my-4">
                         <label htmlFor="Department" className="text-gray-700">
                             Department 
-                            {applyDataErr.department && (
-                  <span className="text-red-500 font-bold" >* {applyDataErr.department}</span>
-                )}
+                            {applyDataErr.department && <span className="text-red-500 font-bold">* {applyDataErr.department}</span>}
+
                         </label>
                         <select
                             type="text"
@@ -572,7 +589,7 @@ GetRequest('/admin/get-all-department').then(res =>{
                                 <div className="flex flex-col items-center justify-center pt-5 pb-6">
                                     <svg className="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
                                     <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-                                    <p clclassNameass="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                                    <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                                 </div>
                                 <input type="file" id="dropzone-file" name="image" onChange={(e) => {
                 console.log(e.target.files[0]);
@@ -615,127 +632,6 @@ GetRequest('/admin/get-all-department').then(res =>{
                         </p>
                         {/* <script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"></script> */}
                     </div>
-
-
-
-
-
-
-
-                    {/* <div className="flex flex-col my-4">
-        <label htmlFor="password" className="text-gray-700">
-          Password
-        </label>
-        <div className="relative">
-          <input
-            type={showPassword ? 'text' : 'password'}
-            name="password"
-            id="password"
-            className="mt-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900 pr-10"
-            placeholder="Enter your password"
-          />
-          <button
-            type="button"
-            className="absolute top-1/2 right-2 transform -translate-y-1/2 text-gray-600 focus:outline-none"
-            onClick={handlePasswordVisibility}
-          >
-            {showPassword ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 5a3 3 0 100 6 3 3 0 000-6zm0 5a2 2 0 100-4 2 2 0 000 4zM4.343 9.657a6 6 0 018.485-8.485l-1.415 1.414a4 4 0 10-5.657 5.657L4.343 9.657zM9 13.535l1.464 1.464A6 6 0 019.536 20H9v-1.536A6 6 0 015.071 16.07L6.536 14.607A4 4 0 009 13.535z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 12a2 2 0 100-4 2 2 0 000 4zM6 9a3 3 0 114.898 2.282l.326.816a1 1 0 001.853-.554l-.326-.816A3 3 0 016 9zm9-3a7 7 0 11-14 0 7 7 0 0114 0zm-1.464-2.121l-9 9-1.415-1.414 9-9 1.415 1.414zM16 9a1 1 0 100 2 1 1 0 000-2z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            )}
-          </button>
-        </div>
-      </div>
-
-      <div className="flex flex-col my-4">
-        <label htmlFor="passwordConfirmation" className="text-gray-700">
-          Confirm Password
-        </label>
-        <div className="relative">
-          <input
-            type={showPasswordConfirmation ? 'text' : 'password'}
-            name="passwordConfirmation"
-            id="passwordConfirmation"
-            className="mt-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900 pr-10"
-            placeholder="Confirm your password"
-          />
-          <button
-            type="button"
-            className="absolute top-1/2 right-2 transform -translate-y-1/2 text-gray-600 focus:outline-none"
-            onClick={handlePasswordConfirmationVisibility}
-          >
-            {showPasswordConfirmation ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 5a3 3 0 100 6 3 3 0 000-6zm0 5a2 2 0 100-4 2 2 0 000 4zM4.343 9.657a6 6 0 018.485-8.485l-1.415 1.414a4 4 0 10-5.657 5.657L4.343 9.657zM9 13.535l1.464 1.464A6 6 0 019.536 20H9v-1.536A6 6 0 015.071 16.07L6.536 14.607A4 4 0 009 13.535z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 12a2 2 0 100-4 2 2 0 000 4zM6 9a3 3 0 114.898 2.282l.326.816a1 1 0 001.853-.554l-.326-.816A3 3 0 016 9zm9-3a7 7 0 11-14 0 7 7 0 0114 0zm-1.464-2.121l-9 9-1.415-1.414 9-9 1.415 1.414zM16 9a1 1 0 100 2 1 1 0 000-2z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            )}
-          </button>
-        </div>
-      </div>
-
-      <div className="flex items-center mt-6">
-        <input
-          type="checkbox"
-          name="terms"
-          id="terms"
-          className="text-blue-600 focus:ring-0 border-gray-300 rounded"
-        />
-        <label htmlFor="terms" className="text-sm text-gray-700 ml-2">
-          I agree to the{' '}
-          <a
-            href="#"
-            className="text-blue-600 hover:text-blue-700 hover:underline"
-            title="Terms and Conditions"
-          >
-            Terms and Conditions
-          </a>
-        </label>
-      </div> */}
 
 <div className='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
                     <button  onClick={handleOnSubmit} class='w-auto bg-blue-500 hover:bg-blue-700 rounded-lg shadow-xl font-medium text-white px-4 py-2' >Approve</button>

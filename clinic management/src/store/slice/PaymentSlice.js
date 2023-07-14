@@ -17,7 +17,7 @@ export const paymentSlice =createSlice({
 })
 const paymentReducer=paymentSlice.reducer
 export const {paymentData,clearPaymentData}=paymentSlice.actions;
-// export const selectPaymentDetails=(state)=> state.paymentDetails.paymentDetails;
-export const selectPaymentDetails=(state)=> state.root.paymentDetails.paymentDetails;
+export const selectPaymentDetails=(state)=> state.paymentDetails.paymentDetails;
+// export const selectPaymentDetails=(state)=> state.root.paymentDetails.paymentDetails;
 
 export default paymentReducer

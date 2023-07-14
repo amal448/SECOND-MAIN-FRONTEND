@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import Chart from "react-apexcharts";
+import useFetch from '../../../hooks/useFetch';
 
 const WeeklyReport = () => {
 
     const [report,setReport] = useState([])
-   
+    const getRequest=useFetch('GET')
+  useEffect(()=>{
+    getRequest('/doctor/weekly-report').then((report)=>{
+      setReport(report)
+    })
+  },[])
+
+
+
     const options = {
         chart: {
         id: "basic-bar"

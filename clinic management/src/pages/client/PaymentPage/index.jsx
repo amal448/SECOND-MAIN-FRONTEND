@@ -10,7 +10,7 @@ function BeforePayment() {
   
   // const doctors=location.state?.doctors
 
-  const doctors=useSelector((state) => state.root.paymentDetails.paymentDetails);
+  const doctors=useSelector((state) => state?.paymentDetails?.paymentDetails);
 
 
 

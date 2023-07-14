@@ -1,7 +1,10 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
 function Failure() {
+
+
   return (
     <div class="h-screen flex  justify-center">
     <div class="bg-white p-6 mt-9  md:mx-auto">
@@ -17,6 +20,7 @@ function Failure() {
                 <Link to='/' href="#" class="px-12 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3">
                     Go to Home Page
                 </Link>
+            {/* <button class="px-12 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3" onClick={handleonClick}>Go to Home Page </button> */}
             </div>
         </div>
     </div>

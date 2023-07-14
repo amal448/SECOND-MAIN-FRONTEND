@@ -1,9 +1,12 @@
 import React,{useState} from 'react';
 import { useDispatch } from 'react-redux';
 import {doctorLogout} from '../../../store/slice/doctersSlice'
+import { useNavigate } from 'react-router-dom';
+
 function DoctorNavBar() {
 
   const dispatch=useDispatch()
+  const navigate=useNavigate()
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   
     const toggleDropdown = () => {
@@ -75,39 +78,82 @@ function DoctorNavBar() {
                 <div className="flex space-x-4">
                   {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
                   <a
-                    href="/doctor/home"
+                    // href="/doctor/home"
                     className="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
                     aria-current="page"
+                    onClick={(e)=>{
+                      e.preventDefault()
+                      navigate('/doctor/home')
+                      return false
+                    }}
                   >
                     Home
                   </a>
                   <a
-                    href="/doctor/patients"
+                    // href=""
                     className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    onClick={(e)=>{
+                      e.preventDefault()
+                      navigate('/doctor/patients')
+                      return false
+                    }}
+                  
                   >
                     Patients
                   </a>
                   <a
-                    href="/doctor/schedule"
+                    // href=""
                     className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    onClick={(e)=>{
+                      e.preventDefault()
+                      navigate('/doctor/schedule')
+                      return false
+                    }}
                   >
                     Shedule
                   </a>
                   <a
-                    href="/doctor/appointments"
+                    // href=""
                     className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    onClick={(e)=>{
+                      e.preventDefault()
+                      navigate('/doctor/appointments')
+                      return false
+                    }}
                   >
                     Appointment
                   </a>
                   <a
-                    href="/doctor/payment"
+                    // href=""
                     className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    onClick={(e)=>{
+                      e.preventDefault()
+                      navigate('/doctor/payment')
+                      return false
+                    }}
                   >
                     Payment
                   </a>
                   <a
-                    href="/doctor/profile"
+                    // href=""
                     className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    onClick={(e)=>{
+                      e.preventDefault()
+                      navigate('/doctor/myTimings')
+                      return false
+                    }}
+                  >
+                    Timings
+                  </a>
+                  
+                  <a
+                    // href="/doctor/profile"
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                    onClick={(e)=>{
+                      e.preventDefault()
+                      navigate('/doctor/profile')
+                      return false
+                    }}
                   >
                     Profile
                   </a>

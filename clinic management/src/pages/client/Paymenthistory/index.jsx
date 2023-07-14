@@ -9,7 +9,7 @@ function PaymentHistoryPage() {
     const getRequest=useFetch('GET')
     const [allAppointments,setAllAppointments]=useState([])
     const data=useSelector(state=>state)
-    const userId=data?.root?.user?.id
+    const userId=data?.user?.id
 
   useEffect(()=>{
   

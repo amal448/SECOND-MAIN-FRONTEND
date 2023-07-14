@@ -136,7 +136,7 @@ function UserNavBar() {
                       navigate('/paymenthistory')
                       return false
                     }}  >
-                    Payment
+                    Book History
                   </a>
                 </div>
               </div>

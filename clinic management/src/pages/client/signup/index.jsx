@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
 import sideImage from "../../../assets/svg/login-page-logo.svg";
 import openEye from "../../../assets/images/open-eye.png";
 import closedEYe from "../../../assets/images/closed-eye.png";
@@ -40,6 +40,8 @@ function Signup() {
   });
 
   const [showPassword, setShowPassword] = useState(false);
+  const [image, setImage] = useState([])
+  const [imageErr, setImageErr] = useState(false)
 
   function handleOnchange(e) {
     console.log(e.target);
@@ -53,7 +55,7 @@ function Signup() {
 
   function handleSubmit(e) {
 
-    console.log(userDataErr);
+    // console.log(userDataErr);
 
     if (
       userData.firstName == "" ||
@@ -137,26 +139,96 @@ function Signup() {
       });
       return;
     }
+    if ( image?.length == 0) {
+      console.log("image")
+      
+      if (image?.length == 0) {
+        setImageErr(true)
+
+      }
+      return;
+    }
 
     try {
-      console.log(userData);
-      postRequest("/user/signup", userData)
-        .then((res) => {
-          console.log(res);
-          if(res.ok) {
-            navigate("/login");
-            // localStorage.setItem("user-token", JSON.stringify(res.token));
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          setUserDataErr((prev) => {
-            return {
-              ...prev,
-              ...err,
-            };
+
+      function uploadFile() {
+        console.log("uploasd")
+        let files = []
+        files.push({ file: image, name: "image" })
+
+        const uploaders = files.map(file => {
+          return new Promise((resolve, reject) => {
+
+            const formData = new FormData();
+            console.log(file.file);
+            formData.append("file", file.file[0]);
+            formData.append("upload_preset", "ml_default");
+            formData.append("cloud_name", "dmmnc8hj0");
+            formData.append("api_key", 267368443785975);
+            formData.append("timestamp", (Date.now() / 1000) | 0);
+
+
+            // "https://api.cloudinary.com/v1_1/<cloud name>/<resource_type>/upload"
+            try {
+              axios.post("https://api.cloudinary.com/v1_1/dmmnc8hj0/upload", formData, {
+                headers: { "X-Requested-With": "XMLHttpRequest" },
+              }).then(response => {
+                const data = response.data;
+                console.log("asdfasd", data.secure_url);
+
+                resolve({ file: data.secure_url, name: file.name })
+              }).catch(err => {
+                console.log(err.message);
+              })
+            } catch (error) {
+              console.log(error.message);
+            }
           });
+
+        })
+
+       
+        // Once all the files are uploaded
+        Promise.all(uploaders).then((res) => {
+          // ... perform after upload is successful operation
+          console.log(res)
+
+          let obj = {}
+          obj[res[0].name] = res[0].file
+          let Applicantdata = { ...userData, ...obj}
+          console.log("Applicantdata",Applicantdata)
+          //  Appicantdata={...applyData}
+
+          console.log(userData);
+          postRequest("/user/signup", Applicantdata)
+            .then((res) => {
+              console.log(res);
+              if(res.ok) {
+                navigate("/login");
+                // localStorage.setItem("user-token", JSON.stringify(res.token));
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+              setUserDataErr((prev) => {
+                return {
+                  ...prev,
+                  ...err,
+                };
+              });
+            });
+       
+       
         });
+      }
+      console.log(1111111111);
+
+      uploadFile()
+
+      console.log("User outside",Applicantdata);
+
+
+      
     } catch (error) {
       console.log(error);
     }
@@ -283,6 +355,16 @@ function Signup() {
             />
           </div>
         </div>
+            <div className="form-control">
+            <label htmlFor="image">Image
+            {imageErr && <span className="text-red-500 font-bold">* Please Provide the Image</span>}
+            </label>
+        <input type="file" name="image" onChange={(e) => {
+                console.log(e.target.files[0]);
+                setImage([e.target.files[0]])
+        }} />
+          </div>
+
         <input type="button" onClick={handleSubmit} value="submit" id="" />
       </form>
     </div>

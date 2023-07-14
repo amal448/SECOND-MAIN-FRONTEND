@@ -20,7 +20,8 @@ function Messenger() {
   const scrollRef=useRef()
 
   const user = useSelector((state) => state);
-  const userid = user?.root?.user.id;
+  const userid = user?.user.id;
+  console.log("userid",userid)
   const getRequest = useFetch('GET');
   const postRequest= useFetch('POST')
 
@@ -94,29 +95,34 @@ useEffect(()=>{
 
   const handleSubmit =async(e) =>{
     e.preventDefault();
-    const message = {
-      sender :userid,
-      text:sendMessage,
-      conversationId :currentChat?._id
+
+    if(sendMessage.trim() !== ''){
+
+      const message = {
+        sender :userid,
+        text:sendMessage,
+        conversationId :currentChat?._id
+      }
+  
+      const receiverId=currentChat.members.find(member=>member !==userid)
+  
+  
+  socket.current.emit("sendMessage",{
+    senderId:userid,
+    receiverId,
+    text:sendMessage
+  })
+  
+      try
+      {
+        const res =await postRequest('/messages',message)
+        setMessages([...messages,res])
+        setSendMessage("")
+      }catch(error){
+        console.log(error)
+      }
     }
 
-    const receiverId=currentChat.members.find(member=>member !==userid)
-
-
-socket.current.emit("sendMessage",{
-  senderId:userid,
-  receiverId,
-  text:sendMessage
-})
-
-    try
-    {
-      const res =await postRequest('/messages',message)
-      setMessages([...messages,res])
-      setSendMessage("")
-    }catch(error){
-      console.log(error)
-    }
   }
 
   useEffect(()=>{
@@ -198,6 +204,7 @@ socket.current.emit("sendMessage",{
     <button
       className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-green-500 text-white py-2 px-4 rounded-md"
       onClick={handleSubmit}
+      disabled={sendMessage.trim() === ''}
     >
       Submit
     </button>
