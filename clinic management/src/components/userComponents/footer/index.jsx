@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import siteLogo from './../../../assets/svg/site-logo.svg';
 import emailLogo from './../../../assets/svg/email.svg'
@@ -32,19 +32,16 @@ function Footer() {
                     <p className="font-semibold text-gray-800 dark:text-white">Quick Link</p>
     
                     <div className="flex flex-col items-start mt-5 space-y-2">
-                        <a href="#" className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:text-blue-500">Home</a>
-                        <a href="#" className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:text-blue-500">Who We Are</a>
-                        <a href="#" className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:text-blue-500">Our Philosophy</a>
+                    <Link to={"/"} className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:text-blue-500">Home</Link>
+
                     </div>
                 </div>
     
                 <div>
-                    <p className="font-semibold text-gray-800 dark:text-white">Industries</p>
+                    <p className="font-semibold text-gray-800 dark:text-white">News</p>
     
                     <div className="flex flex-col items-start mt-5 space-y-2">
-                        <a href="#" className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:text-blue-500">Retail & E-Commerce</a>
-                        <a href="#" className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:text-blue-500">Information Technology</a>
-                        <a href="#" className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:text-blue-500">Finance & Insurance</a>
+                        <Link to={"https://medicaldialogues.in/"} className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:text-blue-500">Medical Bulletin</Link>
                     </div>
                 </div>
             </div>
@@ -53,7 +50,7 @@ function Footer() {
             
             <div className="flex items-center justify-between">
                 <a href="#">
-                    <img className="w-auto h-7" src="https://merakiui.com/images/full-logo.svg" alt=""/>
+                    <img className="w-10 h-7" src="/medicallogo1.jpeg" alt=""/>
                 </a>
                 
                 <div className="flex -mx-2">

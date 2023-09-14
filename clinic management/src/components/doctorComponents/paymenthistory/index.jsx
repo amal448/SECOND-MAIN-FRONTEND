@@ -25,10 +25,6 @@ console.log("doctorIddddddddd",doctorId)
 
 
 
-
-
-
-
   const navigate=useNavigate()
 
   const createChatHandler =async(userId)=>{
@@ -53,11 +49,23 @@ console.log("credentials",credentials)
     navigate('/doctor/chat');
 
 }
+// Helper function to capitalize the first letter of each word
+function capitalizeFirstLetter(str) {
+  return str
+    .toLowerCase()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
 
 
 
   return (
-    <div>
+    <div style={{
+      margin: 'auto',
+      maxWidth: '95%',
+      marginTop: '15px'
+    }}>
       <h2 className="text-2xl font-semibold mb-4 pt-4">PAYMENT</h2>
       <table className="min-w-full table-auto">
         <thead className="justify-between">
@@ -99,7 +107,7 @@ console.log("credentials",credentials)
               <span>{index+1}</span>
             </td>
             <td>
-              <span className="text-center ml-2 font-semibold">{appointment.paymentOwner}</span>
+              <span className="text-center ml-2 font-semibold"> {capitalizeFirstLetter(appointment.paymentOwner)}</span>
             </td>
             <td className="px-16 py-2">
               <span>{appointment.paymentOwnerEmail}</span>
@@ -108,7 +116,7 @@ console.log("credentials",credentials)
               <span>DOB</span>
             </td> */}
             <td className="px-16 py-2">
-              <span className="text-green-500">
+              <span className="text-gray-500">
                 {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-5 h-5"
@@ -122,7 +130,7 @@ console.log("credentials",credentials)
                   <path stroke="none" d="M0 0h24v24H0z" />
                   <path d="M5 12l5 5l10 -10" />
                 </svg> */}
-                {appointment.date}
+               {new Date(appointment.date).toLocaleDateString()}
               </span>
             </td>
             <td className="px-16 py-2">

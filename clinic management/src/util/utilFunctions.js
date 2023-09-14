@@ -2,7 +2,7 @@ const passRegex = new RegExp(/^[a-zA-Z0-9]*[\W_]+[a-zA-Z0-9]*$/);
 const checkStringHasDigits = /\d+/
 const characterChecker = /^[0-9]{10}$/
 const EMAILREGEX = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d._%+-]+@[A-Za-z\d.-]+\.[A-Za-z]{2,}$/
-
+// const EMAILREGEX = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/
 export function checkPasswordHasSpecialCharacters(password) {
     return passRegex.test(password)
 }

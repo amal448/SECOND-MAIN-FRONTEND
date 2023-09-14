@@ -1,8 +1,28 @@
 import React from 'react';
 import useFetch from '../../../hooks/useFetch';
 
+
+function capitalizeFirstLetter(str) {
+  return str
+    .toLowerCase()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+
+
 function Paymenthistory({ appointments }) {
   console.log("appointments", appointments);
+
+  // function getCurrentTime() {
+  //   const date = new Date();
+  //   const options = { hour: 'numeric', minute: 'numeric', hour12: true };
+  //   return date.toLocaleTimeString([], options);
+  // }
+
+
+
 
   return (
     <div>
@@ -35,11 +55,11 @@ function Paymenthistory({ appointments }) {
             {appointments.map((appointment, index) => (
               <tr className="border-b border-gray-300" key={index}>
                 <td className="px-4 py-2">{index + 1}</td>
-                <td className="px-4 py-2">
-                  <span className="font-semibold">Dr. {appointment.doctorName}</span>
+                <td className="px-4 py-2">     
+                  <span className="font-semibold">Dr. {capitalizeFirstLetter(appointment.doctorName)}</span>
                 </td>
                 <td className="px-4 py-2">{appointment.department}</td>
-                <td className="px-4 py-2">{appointment.date}</td>
+                <td className="px-4 py-2">  {new Date(appointment.date).toLocaleDateString()}</td>
                 <td className="px-4 py-2">{appointment.time}</td>
                 <td className="px-4 py-2">{appointment.price}</td>
               </tr>

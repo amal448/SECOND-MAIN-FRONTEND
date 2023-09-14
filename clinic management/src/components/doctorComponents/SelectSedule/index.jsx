@@ -1,5 +1,5 @@
 
-// import React, { useState } from 'react';
+// import React, { useEffect, useState } from 'react';
 // import { Navigate, useNavigate } from 'react-router-dom';
 // import useFetch from '../../../hooks/useFetch';
 
@@ -38,11 +38,19 @@
 //       }
 //       return timing;
 //     });
-//     console.log("start updatedTimings",updatedTimings)
-//     setTimings(updatedTimings);
-//     setSelectedSlot(updatedTimings.find((timing) => timing.day === selectedDay).timeSlots[slotIndex]);
-//     validateTimings(updatedTimings);
+//     setTimings((pre) => {
+//       let prev = pre;
+//       let selectedDayIndex = pre.map(e => e.day == day).indexOf(true)
+//       prev[selectedDayIndex].timeSlots[slotIndex] = { startTime: e.target.value };
+//       return prev;
+//     });
+//     // setSelectedSlot(updatedTimings.find((timing) => timing.day === selectedDay).timeSlots[slotIndex]);
+//     // validateTimings(updatedTimings);
 //   };
+
+//   useEffect(()=>{
+//     console.log(timings);
+//   },[timings])
 
 //   const handleEndTimeChange = (e, day, slotIndex) => {
 //     const updatedTimings = timings.map((timing) => {
@@ -57,8 +65,11 @@
 //       }
 //       return timing;
 //     });
-//     setTimings(updatedTimings);
-//     console.log("end updatedTimings",updatedTimings)
+//     setTimings((pre) => {
+//       let prev = pre;
+//       prev.timings[1].timeSlots[slotIndex] = { endTime: e.target.value }
+//     });
+//     console.log("end updatedTimings", updatedTimings)
 
 //     setSelectedSlot({ ...selectedSlot, endTime: e.target.value });
 //     validateTimings(updatedTimings);
@@ -66,7 +77,7 @@
 
 //   const handleDayClick = (day) => {
 //     const selectedTiming = timings.find((timing) => timing.day === day);
-//     console.log("selectedTiming",selectedTiming)
+//     console.log("selectedTiming", selectedTiming)
 //     setSelectedDay(day);
 //     setSelectedSlot(selectedTiming?.timeSlots[0]);
 //     setValidationErrors([]);
@@ -89,27 +100,27 @@
 //   };
 
 //   const handleAddSlot = () => {
-//     console.log("timings",timings)
+//     console.log("timings", timings)
 //     const updatedTimings = timings.map((timing) => {
-//       console.log("timing in timings ",timing)
+//       console.log("timing in timings ", timing)
 //       if (timing.day === selectedDay) {
-//         console.log("...timing.timeSlots",...timing.timeSlots)
+//         console.log("...timing.timeSlots", ...timing.timeSlots)
 //         const updatedTimeSlots = [...timing.timeSlots, { startTime: '', endTime: '' }];
 //         return { ...timing, timeSlots: updatedTimeSlots };
 //       }
 //       return timing;
 //     });
-//     console.log("handleaddSlot",updatedTimings)
+//     console.log("handleaddSlot", updatedTimings)
 //     setTimings(updatedTimings);
 
 
-//     const selectedTiming =updatedTimings.find((timing) => timing.day === selectedDay);
-//     console.log("selected timing in  handle ",selectedTiming)
+//     const selectedTiming = updatedTimings.find((timing) => timing.day === selectedDay);
+//     console.log("selected timing in  handle ", selectedTiming)
 //     const newSlotIndex = selectedTiming.timeSlots.length - 1;
-//     console.log("newSlotIndex in  handle ",newSlotIndex)
+//     console.log("newSlotIndex in  handle ", newSlotIndex)
 
-//   setSelectedSlot(selectedTiming.timeSlots[newSlotIndex]);
-//   validateTimings(updatedTimings);
+//     setSelectedSlot(selectedTiming.timeSlots[newSlotIndex]);
+//     validateTimings(updatedTimings);
 //   };
 
 //   const handleRemoveSlot = (slotIndex) => {
@@ -153,33 +164,32 @@
 //       });
 //   };
 
-// // new tryyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+//   // new tryyyyyyyyyyyyyyyyyyyyyyyyyyyyy
 
-//   const getAvailableTimeSlots =()=>{
-//     if(!selectedDay)
-//     {
+//   const getAvailableTimeSlots = () => {
+//     if (!selectedDay) {
 //       return []
-//     } 
+//     }
 
-// const selectedDayTimings=timings.find((timing)=>
-//   timing.day === selectedDay
-// )
+//     const selectedDayTimings = timings.find((timing) =>
+//       timing.day === selectedDay
+//     )
 
-// if(!selectedDayTimings){
-//   return []
-// }
-// const existingTimeSlots=selectedDayTimings.timeSlots;
+//     if (!selectedDayTimings) {
+//       return []
+//     }
+//     const existingTimeSlots = selectedDayTimings.timeSlots;
 
-// const availableTimeSlots =existingTimeSlots.filter((timeSlot)=>{
-//   const startTime=timeSlot.startTime;
-//   const endTime=timeSlot.endTime;
-//   if ((startTime >= selectedSlot.startTime && startTime <= selectedSlot.endTime) || (endTime >= selectedSlot.startTime && endTime <= selectedSlot.endTime)) {
-//     return false; // Exclude conflicting time slot
-//   }
-//   return true
-// })
+//     const availableTimeSlots = existingTimeSlots.filter((timeSlot) => {
+//       const startTime = timeSlot.startTime;
+//       const endTime = timeSlot.endTime;
+//       if ((startTime >= selectedSlot.startTime && startTime <= selectedSlot.endTime) || (endTime >= selectedSlot.startTime && endTime <= selectedSlot.endTime)) {
+//         return false; // Exclude conflicting time slot
+//       }
+//       return true
+//     })
 
-// return availableTimeSlots;
+//     return availableTimeSlots;
 
 //   }
 
@@ -200,11 +210,11 @@
 //               onChange={(e) => handleStartTimeChange(e, selectedDay, timings.findIndex((timing) => timing.day === selectedDay))}
 //             >
 //               <option value="">Select</option>
-//               {getAvailableTimeSlots().map((timeSlot)=>
+//               {getAvailableTimeSlots().map((timeSlot) =>
 
-// <option key={timeSlot} value={timeSlot}>{timeSlot}</option>
+//                 <option key={timeSlot} value={timeSlot}>{timeSlot}</option>
 //               )}
-//               {/* <option value="9:00 AM">9:00 AM</option>
+//               <option value="9:00 AM">9:00 AM</option>
 //               <option value="10:00 AM">10:00 AM</option>
 //               <option value="11:00 AM">11:00 AM</option>
 //               <option value="12:00 PM">12:00 PM</option>
@@ -215,7 +225,7 @@
 //               <option value="05:00 PM">05:00 PM</option>
 //               <option value="06:00 PM">06:00 PM</option>
 //               <option value="07:00 PM">07:00 PM</option>
-//               <option value="08:00 PM">08:00 PM</option> */}
+//               <option value="08:00 PM">08:00 PM</option>
 //               {/* Add more options as needed */}
 //             </select>
 //           )}
@@ -275,9 +285,8 @@
 //         {daysOfWeek.map((day) => (
 //           <button
 //             key={day}
-//             className={`p-2 rounded-md border ${
-//               selectedDay === day ? 'border-blue-500' : 'border-gray-300'
-//             } ${validationErrors.includes(day) ? 'bg-red-200' : 'bg-gray-100'}`}
+//             className={`p-2 rounded-md border ${selectedDay === day ? 'border-blue-500' : 'border-gray-300'
+//               } ${validationErrors.includes(day) ? 'bg-red-200' : 'bg-gray-100'}`}
 //             onClick={() => handleDayClick(day)}
 //           >
 //             {day}
@@ -332,105 +341,104 @@ const initialTimings = [
   { day: 'Saturday', startTime: '', endTime: '' },
 ];
 
-function SelectSchedule () {
+function SelectSchedule() {
 
-  const [selectedTiming,setSelectedTiming]=useState(null)
-  const [timings,setTimings]=useState(initialTimings)  
-  const [interval,setInterval]=useState(30)
-  const [validationErrors,setValidationErrors] =useState([])
+  const [selectedTiming, setSelectedTiming] = useState(null)
+  const [timings, setTimings] = useState(initialTimings)
+  const [interval, setInterval] = useState(30)
+  const [validationErrors, setValidationErrors] = useState([])
 
-  const putRequest=useFetch('PUT')
-  const navigate=useNavigate()
+  const putRequest = useFetch('PUT')
+  const navigate = useNavigate()
 
 
-const handleStartTimeChange=(e,day)=>{
+  const handleStartTimeChange = (e, day) => {
 
-const updatedtimings=timings.map((timing)=>
-  timing.day===day ? {...timing,startTime: e.target.value}:timing
-)
-setTimings(updatedtimings)
-const selectedTimingIndex = updatedtimings.findIndex((timing) => timing.day === selectedTiming?.day);
-if (selectedTimingIndex !== -1) {
-  setSelectedTiming(updatedtimings[selectedTimingIndex]);
-}
-validateTimings(updatedtimings);
+    const updatedtimings = timings.map((timing) =>
+      timing.day === day ? { ...timing, startTime: e.target.value } : timing
+    )
+    setTimings(updatedtimings)
+    const selectedTimingIndex = updatedtimings.findIndex((timing) => timing.day === selectedTiming?.day);
+    if (selectedTimingIndex !== -1) {
+      setSelectedTiming(updatedtimings[selectedTimingIndex]);
+    }
+    validateTimings(updatedtimings);
 
-} 
-
-const handleEndTimeChange=(e,day)=>{
-
-  const updatedtimings=timings.map((timing)=>
-    timing.day===day ? {...timing,endTime:e.target.value}:timing
-  )
-  setTimings(updatedtimings)
-  const selectedTimingIndex = updatedtimings.findIndex((timing) => timing.day === selectedTiming?.day);
-  if (selectedTimingIndex !== -1) {
-    setSelectedTiming(updatedtimings[selectedTimingIndex]);
   }
-  validateTimings(updatedtimings);
 
-  } 
+  const handleEndTimeChange = (e, day) => {
 
+    const updatedtimings = timings.map((timing) =>
+      timing.day === day ? { ...timing, endTime: e.target.value } : timing
+    )
+    setTimings(updatedtimings)
+    const selectedTimingIndex = updatedtimings.findIndex((timing) => timing.day === selectedTiming?.day);
+    if (selectedTimingIndex !== -1) {
+      setSelectedTiming(updatedtimings[selectedTimingIndex]);
+    }
+    validateTimings(updatedtimings);
 
-
- const handleDayClick =(day)=>{
-  const selectedTiming =timings.find((timing)=>timing.day===day);
-  setSelectedTiming(selectedTiming)
-  setValidationErrors([]);
-
-}
-
-const handleIntervalChange =(e)=>{
-  setInterval(parseInt(e.target.value))
-}
-
-const validateTimings=(updatedtimings)=>{
-  const errors=[]
-
-updatedtimings.forEach((timing)=>{
-  if(!timing.startTime || !timing.endTime)
-  {
-    errors.push(timing.day)
   }
-})
-setValidationErrors(errors)
-
-}
-
-const handleGenerateOutput =async ()=>{
-  const filteredTimings=timings.filter((timing)=>
-    timing.startTime && timing.endTime)      
-
-  console.log("filteredTimings",filteredTimings)
-
-  const output ={
-    timings: filteredTimings.length >0 ? filteredTimings :[{day:'Not available',startTime:'',endTime:''}],
-    interval
-  };
-
- 
-
-  console.log("LKKKLKLKLLKLL",output);
-//axios put
-// Navigate to home
-
- putRequest('/doctor/update-timeSlot',output).then((res)=>{
-  console.log("resssssswdfefreferfs",res);
-  navigate("/doctor/home")
-}).catch((error)=>{
-  console.log(error);
-})
-
-
-}
 
 
 
-  
+  const handleDayClick = (day) => {
+    const selectedTiming = timings.find((timing) => timing.day === day);
+    setSelectedTiming(selectedTiming)
+    setValidationErrors([]);
+
+  }
+
+  const handleIntervalChange = (e) => {
+    setInterval(parseInt(e.target.value))
+  }
+
+  const validateTimings = (updatedtimings) => {
+    const errors = []
+
+    updatedtimings.forEach((timing) => {
+      if (!timing.startTime || !timing.endTime) {
+        errors.push(timing.day)
+      }
+    })
+    setValidationErrors(errors)
+
+  }
+
+  const handleGenerateOutput = async () => {
+    const filteredTimings = timings.filter((timing) =>
+      timing.startTime && timing.endTime)
+
+    console.log("filteredTimings", filteredTimings)
+
+    const output = {
+      timings: filteredTimings.length > 0 ? filteredTimings : [{ day: 'Not available', startTime: '', endTime: '' }],
+      interval
+    };
+
+
+
+    console.log("LKKKLKLKLLKLL", output);
+    //axios put
+    // Navigate to home
+
+    putRequest('/doctor/update-timeSlot', output).then((res) => {
+      console.log("resssssswdfefreferfs", res);
+      navigate("/doctor/home")
+    }).catch((error) => {
+      console.log(error);
+    })
+
+
+  }
+
+
+
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
-    {/* <Toaster position='top-center' reverseOrder={false}></Toaster> */}
-    <h1 className="text-2xl font-bold mb-4">Select Start Time and End Time</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-8">
+      {/* <Toaster position='top-center' reverseOrder={false}></Toaster> */}
+      <h1 className="text-xl md:text-2xl font-bold mb-4">Select Start Time and End Time</h1>
       <div className="flex space-x-4 mb-8">
         <div>
           <label htmlFor="start-time" className="text-sm font-medium">
@@ -439,8 +447,8 @@ const handleGenerateOutput =async ()=>{
           <select
             id="start-time"
             className="block w-32 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-            value={selectedTiming ? selectedTiming.startTime:''}
-            onChange={(e)=>handleStartTimeChange(e,selectedTiming?.day)}
+            value={selectedTiming ? selectedTiming.startTime : ''}
+            onChange={(e) => handleStartTimeChange(e, selectedTiming?.day)}
           >
             <option value="">Select</option>
             <option value="9:00 AM">9:00 AM</option>
@@ -457,7 +465,7 @@ const handleGenerateOutput =async ()=>{
             <option value="08:00 PM">08:00 PM</option>
             {/* Add more options as needed */}
           </select>
-          {validationErrors.includes(selectedTiming?.day) && ! selectedTiming.startTime && (
+          {validationErrors.includes(selectedTiming?.day) && !selectedTiming.startTime && (
             <p className="text-red-500 text-xs mt-1">Please select a start time.</p>
           )}
         </div>
@@ -485,10 +493,10 @@ const handleGenerateOutput =async ()=>{
             <option value="08:00 PM">10:00 PM</option>
             <option value="05:00 PM">11:00 PM</option>
           </select>
-          {validationErrors.includes(selectedTiming?.day) && ! selectedTiming.endTime &&(
+          {validationErrors.includes(selectedTiming?.day) && !selectedTiming.endTime && (
 
             <p className=" text-xs mt-1">Please select an end time.</p>
-            
+
           )}
         </div>
       </div>
@@ -499,7 +507,7 @@ const handleGenerateOutput =async ()=>{
         <select
           id="interval"
           className="block w-32 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-         value={interval}
+          value={interval}
           onChange={handleIntervalChange}
         >
           <option value="15">15Min</option>
@@ -508,23 +516,22 @@ const handleGenerateOutput =async ()=>{
           {/* Add more options as needed */}
         </select>
       </div>
-      <div className="grid grid-cols-7 gap-4 mb-8">
-        {daysOfWeek.map((day) =>(
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-7 md:gap-8 mb-8">
+        {daysOfWeek.map((day) => (
           <button
-          key={day}
-          className={`p-2 rounded-md border ${
-            selectedTiming?.day === day ? 'border-blue-500' : 'border-gray-300'
-          } ${validationErrors.includes(day) ? 'bg-red-200' : 'bg-gray-100'}`}
-          onClick={()=>handleDayClick(day)}
+            key={day}
+            className={`p-2 rounded-md border ${selectedTiming?.day === day ? 'border-blue-500' : 'border-gray-300'
+              } ${validationErrors.includes(day) ? 'bg-red-200' : 'bg-gray-100'}`}
+            onClick={() => handleDayClick(day)}
           >
             {day}
           </button>
 
         ))}
-      
+
       </div>
       <button
-        className="px-4 py-2 text-sm font-medium text-white bg-indigo-500 rounded-md hover:bg-indigo-600"
+        className="px-4 py-2 text-sm md:text-base font-medium text-white bg-indigo-500 rounded-md hover:bg-indigo-600"
         onClick={handleGenerateOutput}
       >
         Update time schedule

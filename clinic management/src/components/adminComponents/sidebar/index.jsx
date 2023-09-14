@@ -14,14 +14,22 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
+import { adminLogout } from "../../../store/slice/adminSlice";
+import { useDispatch } from 'react-redux';
 
 const Sidebar = () => {
-  const { dispatch } = useContext(DarkModeContext);
+  // const { dispatch } = useContext(DarkModeContext);
+  const dispatch=useDispatch()
+
+  const handleLogout=()=>{
+    dispatch(userLogout(true))
+  }
+
   return (
     <div className="sidebar">
       <div className="top">
         <Link to="/" style={{ textDecoration: "none" }}>
-          <span className="logo">lamadmin</span>
+          <span className="logo">WeCare</span>
         </Link>
       </div>
       <hr />
@@ -67,40 +75,20 @@ const Sidebar = () => {
               <span>Approval/Rejected List</span>
             </li>
           </Link>                                                             
-          {/* <p className="title">USEFUL</p>
+          <Link to="/admin/login" style={{ textDecoration: "none" }}>
+
              <li style={{marginTop:"20px"}}>
-            <InsertChartIcon className="icon" />
-            <span>Stats</span>
-          </li>
-             <li style={{marginTop:"20px"}}>
-            <NotificationsNoneIcon className="icon" />
-            <span>Notifications</span>
-          </li>
-          <p className="title">SERVICE</p>
-             <li style={{marginTop:"20px"}}>
-            <SettingsSystemDaydreamOutlinedIcon className="icon" />
-            <span>System Health</span>
-          </li> */}
-          {/*    <li style={{marginTop:"20px"}}>
-            <PsychologyOutlinedIcon className="icon" />
-            <span>Logs</span>
-          </li>
-             <li style={{marginTop:"20px"}}>
-            <SettingsApplicationsIcon className="icon" />
-            <span>Settings</span>
-          </li>
-          <p className="title">USER</p>
-             <li style={{marginTop:"20px"}}>
-            <AccountCircleOutlinedIcon className="icon" />
-            <span>Profile</span>
-          </li> */}
-             <li style={{marginTop:"20px"}}>
-            <ExitToAppIcon className="icon" />
+            <ExitToAppIcon className="icon" 
+             onClick={handleLogout}
+            />
             <span>Logout</span>
           </li>
+
+          </Link>
+
         </ul>
       </div>
-      <div className="bottom">
+      {/* <div className="bottom">
         <div
           className="colorOption"
           onClick={() => dispatch({ type: "LIGHT" })}
@@ -109,7 +97,7 @@ const Sidebar = () => {
           className="colorOption"
           onClick={() => dispatch({ type: "DARK" })}
         ></div>
-      </div>
+      </div> */}
     </div>
   );
 };

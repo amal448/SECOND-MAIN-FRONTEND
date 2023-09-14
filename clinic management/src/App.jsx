@@ -16,8 +16,7 @@ import AddDepartment from "./components/adminComponents/addDepartment/AddDepartm
 import ViewApproval from "./components/adminComponents/Approvals";
 import DoctorStatus from "./pages/admin/doctorStatus";
 import AllUsers from "./pages/admin/users";
-
-
+import EditDepartment from "./components/adminComponents/editdepartment";
 
 
 
@@ -42,8 +41,9 @@ import MessengerPage from "./pages/client/Messenger/messenger";
 import ContactPage from "./pages/client/Contact";
 import EmailToken from "./pages/client/activateemailtoken";
 import PaymentHistoryPage from "./pages/client/Paymenthistory";
-
-
+import UserProfile from "./pages/client/userProfile"
+import ListPrescription from "./pages/client/ListPrescription";
+import Footer from "./components/userComponents/footer";
 
 import DoctorLogin from "./pages/doctor/login";
 import DoctorHome from "./pages/doctor/home";
@@ -57,6 +57,10 @@ import ProfilePage from "./pages/doctor/ProfilePage";
 import PaymentPage from "./pages/doctor/payment";
 import VideoCall from "./components/doctorComponents/Video/VideoCall";
 import TimingsPage from "./pages/doctor/Mytimings";
+import PrescriptionList from "./components/doctorComponents/PrescriptionList";
+import Prescription from "./components/doctorComponents/prescription";
+import ViewPrescription from "./components/userComponents/prescriptionList";
+
 const routes = createBrowserRouter([
 
 
@@ -115,6 +119,14 @@ const routes = createBrowserRouter([
     element: (
       <>
     <AddDepartment />
+      </>
+    ),
+  },
+  {
+    path: "/admin/edit-dep/:id",
+    element: (
+      <>
+    <EditDepartment />
       </>
     ),
   },
@@ -185,6 +197,7 @@ const routes = createBrowserRouter([
       <>
        <UserNavBar />
         <BeforePayment />
+        <Footer />
       </>
     ),
   },
@@ -196,6 +209,7 @@ const routes = createBrowserRouter([
       <>
        <UserNavBar />
         <AboutPage />
+        <Footer />
       </>
     ),
   },
@@ -223,6 +237,7 @@ const routes = createBrowserRouter([
       <>
         <UserNavBar />
        <EmailVerification />
+       <Footer />
       </>
     ),
   },
@@ -233,11 +248,22 @@ const routes = createBrowserRouter([
       <>
         <UserNavBar />
       <ResetPasswordPage />
+      <Footer />
       </>
     ),
   },
-
-
+  
+  {
+    // path: "/reset-password",
+     path:"/profile",
+    element: (
+      <>
+        <UserNavBar />
+      <UserProfile />
+      <Footer />
+      </>
+    ),
+  },
 
 
   {
@@ -264,6 +290,7 @@ const routes = createBrowserRouter([
       <>
   <UserNavBar />
   <BookDoctor />
+  <Footer />
       </>
     ),
   },
@@ -274,6 +301,7 @@ const routes = createBrowserRouter([
       <>
   <UserNavBar />
   <PaymentHistoryPage />
+ 
       </>
     ),
   },
@@ -300,6 +328,7 @@ const routes = createBrowserRouter([
       <>
     <UserNavBar />
     <ContactPage />
+    <Footer />
 
       </>
     ),
@@ -309,6 +338,7 @@ const routes = createBrowserRouter([
     element: (
       <>
     <ApplyDoctor />
+    <Footer />
       </>
     ),
   },
@@ -318,6 +348,7 @@ const routes = createBrowserRouter([
       <>
        <UserNavBar />
       <DoctorsList />
+      <Footer />
       </>
     ),
   },
@@ -327,6 +358,7 @@ const routes = createBrowserRouter([
       <>
       <UserNavBar />
       <BookingUserDetails />
+      <Footer />
       </>
     ),
   },
@@ -336,6 +368,7 @@ const routes = createBrowserRouter([
       <>
       <UserNavBar />
       <MessengerPage />
+     
       </>
     ),
   },
@@ -344,9 +377,35 @@ const routes = createBrowserRouter([
     element: (
       <>
       <EmailToken />
+      <Footer />
       </>
     ),
   },
+  {
+    path: "/prescriptiondata",
+    element: (
+      <>
+      <UserNavBar />
+    <ViewPrescription />
+    <Footer />
+      </>
+    ),
+  },
+  
+  {
+    path: "/ListPrescription",
+    element: (
+      <>
+      <UserNavBar />
+      <ListPrescription />
+      <Footer />
+      </>
+    ),
+  },
+
+
+
+
   
   //Doctor
 
@@ -404,7 +463,7 @@ const routes = createBrowserRouter([
     path: "/doctor/profile",
     element: (
       <>
-      {/* <DoctorNavBar /> */}
+      <DoctorNavBar />
       <ProfilePage />
       </>
     ),
@@ -438,6 +497,34 @@ const routes = createBrowserRouter([
       </>
     ),
   },
+  {
+    path: "/doctor/prescription/:userId",
+    element: (
+      <>
+      <DoctorNavBar />
+      <PrescriptionList/>
+      </>
+    ),
+  },
+  {
+    path: "/doctor/newprescription/:userId",
+    element: (
+      <>
+      <DoctorNavBar />
+      <Prescription/> 
+      </>
+    ),
+  },
+  {
+    path: "/doctor/newprescription/:userId",
+    element: (
+      <>
+      <DoctorNavBar />
+      <ViewPrescription/> 
+      </>
+    ),
+  },
+  
 ]);
 
 function App() {

@@ -3,12 +3,16 @@ import useFetch from '../../../../hooks/useFetch';
 
 function ConversationComponent({conversation,currentUser}) { 
   
+  console.log("userIddddddddddddd6778",conversation)
+  console.log("userIddddddddddddd6778",currentUser)
+
+
     const [user,setUser] =useState(null)
     const getRequest=useFetch('GET')
 
     useEffect(()=>{
         const  userId=conversation.members.find((m)=>m!==currentUser)
-        console.log("userId",userId)
+        console.log("userIddddddddddddd6778",userId)
 
     const getUser =async () =>{
         try{

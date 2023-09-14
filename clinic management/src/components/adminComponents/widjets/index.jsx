@@ -4,8 +4,20 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import useFetch from "../../../hooks/useFetch";
 
 const Widget = ({ type }) => {
+  const [details,setDetails] = useState();
+  let getRequest=useFetch('GET')
+  useEffect(()=>{
+    getRequest('/admin/data-count').then((details)=>{
+     console.log("dadadadtttttttttt",details)
+      setDetails(details)
+      console.log("detailsdetailsdetails",details)
+    })
+  },[])
   let data;
 
   //temporary
@@ -15,63 +27,37 @@ const Widget = ({ type }) => {
   switch (type) {
     case "user":
       data = {
-        title: "USERS",
+        title: "PATIENTS",
         isMoney: false,
-        link: "See all users",
-        icon: (
-          <PersonOutlinedIcon
-            className="icon"
-            style={{
-              color: "crimson",
-              backgroundColor: "rgba(255, 0, 0, 0.2)",
-            }}
-          />
-        ),
+        link: "See all patients",
+        linkAddress:'users',
+        data:details?.patients,
       };
       break;
     case "order":
       data = {
-        title: "NEW DOCTORS REQUEST",
+        title: "DOCTORS",
         isMoney: false,
-        link: "View all orders",
-        icon: (
-          <ShoppingCartOutlinedIcon
-            className="icon"
-            style={{
-              backgroundColor: "rgba(218, 165, 32, 0.2)",
-              color: "goldenrod",
-            }}
-          />
-        ),
+        link: "View all Doctors",
+        linkAddress:'doctors',
+        data:details?.doctors,
+       
       };
       break;
     case "earning":
       data = {
-        title: "PATIENTS",
+        title: "APPOINTMENTS",
         isMoney: true,
-        link: "View net earnings",
-        icon: (
-          <MonetizationOnOutlinedIcon
-            className="icon"
-            style={{ backgroundColor: "rgba(0, 128, 0, 0.2)", color: "green" }}
-          />
-        ),
+        data:details?.appointments,
+        linkAddress:'doctors',
+        
       };
       break;
     case "balance":
       data = {
-        title: "TODAYS REVENUE",
+        title: "TRANSACTIONS",
         isMoney: true,
-        link: "See details",
-        icon: (
-          <AccountBalanceWalletOutlinedIcon
-            className="icon"
-            style={{
-              backgroundColor: "rgba(128, 0, 128, 0.2)",
-              color: "purple",
-            }}
-          />
-        ),
+        data:details?.Transaction
       };
       break;
     default:
@@ -83,17 +69,11 @@ const Widget = ({ type }) => {
       <div className="left">
         <span className="title">{data.title}</span>
         <span className="counter">
-          {data.isMoney && "$"} {amount}
+          {data.isMoney && "$"} {data.data}
         </span>
-        <span className="link">{data.link}</span>
+        <Link to={data?.linkAddress}><span className="link">{data.link}</span></Link>
       </div>
-      <div className="right">
-        <div className="percentage positive">
-          <KeyboardArrowUpIcon />
-          {diff} %
-        </div>
-        {data.icon}
-      </div>
+      
     </div>
   );
 };

@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import Chart from "react-apexcharts";
+import useFetch from '../../../hooks/useFetch';
 // import { dailyReport } from '../../Helpers/doctorHelper';
 
 
 const DailyReport = () => {
     const today = new Date().toISOString().slice(0, 10)
     const [report,setReport] = useState([])
-    // useEffect(()=>{
-    //     dailyReport().then((report)=>{
-    //         setReport(report?.data)
 
-    //     })
-    // },[])
+    let GetRequest=useFetch('GET')
+    useEffect(()=>{
+      GetRequest('/doctor/daily-report')
+  .then((report)=>{
+    setReport(report)
+    console.log("reportreportreport",report)
+
+        })
+    },[])
 
   
     

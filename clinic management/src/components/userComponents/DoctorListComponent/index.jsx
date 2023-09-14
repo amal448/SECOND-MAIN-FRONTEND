@@ -10,6 +10,7 @@ function DoctorListComponent({doctors,currentPage,setCurrentPage,totalPages}) {
     function handleOnClick(doctor) {
         navigate('/Availability', { state: { doctor: doctor } });
       }
+      
 const handlePageChange =(page)=>{
   if(page>=1 )
   {

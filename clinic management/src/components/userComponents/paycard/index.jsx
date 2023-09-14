@@ -64,8 +64,8 @@ function PaymentProcess({ doctors }) {
         "ondismiss": function () {
           console.log("closedddd")
           
-          // navigate('/failure');
-          navigate('/payment-process');
+          navigate('/failure');
+          // navigate('/payment-process');
 
         }
       }

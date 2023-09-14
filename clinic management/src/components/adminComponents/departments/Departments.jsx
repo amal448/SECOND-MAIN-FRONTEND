@@ -4,11 +4,14 @@ import { depColumns } from "../../../DepartmentDatatable";
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { Switch } from "@mui/material";
+
 import Swal from "sweetalert2";
 import useFetch from "../../../hooks/useFetch";
 // import { useNavigate } from "react-router-dom";
-const Departments = ({ departments, setDepartments }) => {
+  const Departments = ({ departments, setDepartments }) => {
   const [data, setData] = useState(false);
+  const getRequest = useFetch("GET")
 
   const navigate=useNavigate()
   // const handleEdit = async (id) => {
@@ -48,9 +51,12 @@ const Departments = ({ departments, setDepartments }) => {
   //   }
   // }
 
-const handleEdit=async (id) =>{
-
-navigate.push(`/admin/edit-dep/${id}`)
+const handleEdit=async (event,id) =>{
+  event.stopPropagation();
+  navigate(`/admin/edit-dep/${id}`);
+// getRequest(`/admin/edit-dep/${id}`).then((response)=>{
+//   console.log(response)
+// })
 }
 
 
@@ -62,9 +68,17 @@ navigate.push(`/admin/edit-dep/${id}`)
       renderCell: (params) => {
         return (
           <div className="cellAction">
+        
+
             <div
               className="deleteButton"
-              onClick={() => handleEdit(params?.row?._id)}
+              onClick={(event) =>{
+
+                event.stopPropagation()
+                handleEdit(event,params?.row?._id)
+              }
+                
+              }
 
             >
               Edit
@@ -81,9 +95,9 @@ navigate.push(`/admin/edit-dep/${id}`)
 
         {/* <Link to="/admin/add-department" className="link">
         </Link> */}
-        <button className="link" >
-          Add New <Link to="/admin/add-department" className="link"></Link>
-        </button>
+        {/* <button className="link" > */}
+          <Link to="/admin/add-department" className="link"> Add New</Link>
+        {/* </button> */}
       </div>
       <DataGrid
         className="datagrid"
@@ -92,7 +106,7 @@ navigate.push(`/admin/edit-dep/${id}`)
         columns={depColumns.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}
-      />
+        />
 
     </div>
   );

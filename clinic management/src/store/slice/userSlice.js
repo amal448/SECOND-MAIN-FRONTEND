@@ -10,6 +10,7 @@ const initialState ={
     gender: null,
     loading:false,
     login:localStorage.getItem('user-token') ? true: false,
+    image:null,
     doctors:[]
 }
 
@@ -28,6 +29,7 @@ const userSlice=createSlice({
             state.gender=payload.gender
             state.mobile=payload.mobile
             state.DOB=payload.dateOfBirth
+            state.image=payload.image
             state.login=true,
 
             state.id=payload._id
@@ -44,6 +46,14 @@ const userSlice=createSlice({
         userLogout:(state, {payload})=>{
 
                 localStorage?.removeItem('user-token')
+                state.userName = null;
+                state.email = null;
+                state.gender = null;
+                state.mobile = null;
+                state.DOB = null;
+                state.login = false;
+                state.id = null;
+
                 window.location='/login'
 
         },

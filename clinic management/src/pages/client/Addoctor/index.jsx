@@ -1,6 +1,5 @@
 import React, { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./style.scss";
 import useFetch from "../../../hooks/useFetch";
 import { checkStringHasNumbers } from "../../../util/utilFunctions";
 import { checkMobileNumberHasAnyCharacter } from "../../../util/utilFunctions";
@@ -195,7 +194,7 @@ useEffect(() => {
                 }).catch(err => {
                   console.log(err.message);
                 })
-              } catch (error) {
+              } catch (error) { 
                 console.log(error.message);
               }
             });

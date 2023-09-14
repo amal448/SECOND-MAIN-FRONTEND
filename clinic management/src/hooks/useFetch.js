@@ -17,7 +17,9 @@ export default function useFetch(Method) {
     token = JSON.parse(setToken());
   }
 
+  // let BASEURL = "https://www.wecareindia.online/api";
   let BASEURL = "http://localhost:5000/api";
+
   let METHOD = Method;
   let URL = "";
 
@@ -46,6 +48,7 @@ export default function useFetch(Method) {
           })
           .catch((err) => {
             // return
+            console.log(err)
             if(window.location.pathname.includes("/activate-account")) {
               return
             }

@@ -7,14 +7,14 @@ function ConversationComponent({conversation,currentUser}) {
     const getRequest=useFetch('GET')
 
     useEffect(()=>{
-        const  doctorId=conversation.members.find((m)=>m!==currentUser)
-        console.log("doctorId",doctorId)
+        const  doctorId=conversation?.members?.find((m)=>m!==currentUser)
+        console.log("doctorIdconversation11",doctorId)
 
     const getUser =async () =>{
         try{
             
-            const res =await getRequest('/doctor/doctor/' +doctorId)
-            console.log("redoctorr",res)
+            const res =await getRequest('/user/doctor/' +doctorId)
+            console.log("redoctorrconversation",res)
             setDoctor(res)
         }catch(error)
         {
@@ -24,7 +24,24 @@ function ConversationComponent({conversation,currentUser}) {
     getUser()
     },[currentUser,conversation])
 
+
+  //   const getUser =async () =>{
+  //     try{
+          
+  //         const res =await getRequest('/user/get-doctor/' +doctorId)
+  //         console.log("redoctorrconversation",res)
+  //         setDoctor(res)
+  //     }catch(error)
+  //     {
+  //         console.log('ero d',error) 
+  //     }
+  // }
+  // getUser()
+  // },[currentUser,conversation])
+
+
     console.log(doctor)
+    
   return (
     <>
       <div className="flex flex-row py-4 px-2 justify-center items-center border-b-2">

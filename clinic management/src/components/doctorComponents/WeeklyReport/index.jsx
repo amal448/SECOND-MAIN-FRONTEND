@@ -8,6 +8,7 @@ const WeeklyReport = () => {
     const getRequest=useFetch('GET')
   useEffect(()=>{
     getRequest('/doctor/weekly-report').then((report)=>{
+      console.log("reportcomponent",report);
       setReport(report)
     })
   },[])

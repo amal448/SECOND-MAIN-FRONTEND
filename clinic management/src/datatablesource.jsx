@@ -1,5 +1,5 @@
 export const userColumns = [
-  { field: "id", headerName: "ID", width: 70 },
+  // { field: "id", headerName: "ID", width: 70 },
   {
     field: "firstName",
     headerName: "User",
@@ -8,7 +8,8 @@ export const userColumns = [
       console.log("params",params);
       return (
         <div className="cellWithImg">
-          {/* <img className="cellImg" src={params.row.image} alt="avatar" /> */}
+          
+          <img className="cellImg" src={params.row.image} alt="avatar" />
           {params.row.firstName} {params.row.lastName}
         </div>
       );
@@ -41,7 +42,7 @@ export const userColumns = [
 
 
 export const doctorsColumn = [
-  { field: "id", headerName: "ID", width: 70 },
+  // { field: "id", headerName: "ID", width: 70 },
   {
     field: "doctor",
     headerName: "doctor",

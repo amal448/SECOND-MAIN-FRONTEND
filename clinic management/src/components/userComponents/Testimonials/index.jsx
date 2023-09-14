@@ -1,5 +1,4 @@
 import React from 'react'
-
 function Testimonials() {
   return (
     <section class="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:px-8">
@@ -9,16 +8,16 @@ function Testimonials() {
     <img class="mx-auto h-12" src="https://tailwindui.com/img/logos/workcation-logo-indigo-600.svg" alt="" />
     <figure class="mt-10">
       <blockquote class="text-center text-xl font-semibold leading-8 text-gray-900 sm:text-2xl sm:leading-9">
-        <p>“Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo expedita voluptas culpa sapiente alias molestiae. Numquam corrupti in laborum sed rerum et corporis.”</p>
+        <p>Wherever the art of Medicine is loved, there is also a love of Humanity.</p>
       </blockquote>
       <figcaption class="mt-10">
-        <img class="mx-auto h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt=""/>
+        <img class="mx-auto h-10 w-10 rounded-full" src="/Hippocrates.jpg" alt=""/>
         <div class="mt-4 flex items-center justify-center space-x-3 text-base">
-          <div class="font-semibold text-gray-900">Judith Black</div>
+          <div class="font-semibold text-gray-900">Hippocrates</div>
           <svg viewBox="0 0 2 2" width="3" height="3" aria-hidden="true" class="fill-gray-900">
             <circle cx="1" cy="1" r="1" />
           </svg>
-          <div class="text-gray-600">CEO of Workcation</div>
+          {/* <div class="text-gray-600">CEO of Workcation</div> */}
         </div>
       </figcaption>
     </figure>

@@ -27,11 +27,11 @@ function BookDepartmentComponent({department}) {
               <div className="flex flex-col p-8 rounded-xl bg-white shadow-xl translate-x-4 translate-y-4 w-96 md:w-auto">
                 <img src={siteLogo} className="w-8" alt="Site Logo" />
                 <div className="mt-3 font-semibold text-lg">{dep.department}</div>
-                <div className="text-sm font-light">Available Slot</div>
-                <div className="my-4">
+                <div className="text-sm font-light">Check Available Slots</div>
+                {/* <div className="my-4">
                   <span className="font-bold text-base">Doctor's Count-</span>
                   <span className="font-light text-sm">1</span>
-                </div>
+                </div> */}
                 <button
                   className="bg-[#F4F5FA] px-4 py-3 rounded-full border border-[#F0F0F6] shadow-xl mt-4"
                   onClick={() => handleOnClick(dep)}
